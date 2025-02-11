@@ -12,13 +12,8 @@ public class mathquadformula {
         double c = keyboard.nextDouble();
 
         keyboard.close();
-        if ((Math.pow(b, 2) - 4 * a * c) < 0) {
-            System.out.println("Your function has zero real roots.");
-        }
-        else {
-            System.out.println("Your first root is " + ((-b + Math.sqrt((Math.pow(b, 2) - 4 * a * c))) / (2 * a)) + ".");
-            System.out.println("Your second root is " + ((-b - Math.sqrt((Math.pow(b, 2) - 4 * a * c))) / (2 * a)) + ".");
-        }
+        System.out.println("Your first root is " + ((-b + Math.sqrt((Math.pow(b, 2) - 4 * a * c))) / (2 * a)) + ".");
+        System.out.println("Your second root is " + ((-b - Math.sqrt((Math.pow(b, 2) - 4 * a * c))) / (2 * a)) + ".");
     }
 }
     
