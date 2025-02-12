@@ -13,6 +13,6 @@ public class sinelaw {
 
         keyboard.close();
 
-        System.out.println(Math.toDegrees((Math.asin((Math.sin(Math.toRadians(angleA)) * sideB / sideA)))));
+        System.out.println("The value of angle B is " + Math.toDegrees((Math.asin((Math.sin(Math.toRadians(angleA)) * sideB / sideA)))) + ".");
     }
 }
