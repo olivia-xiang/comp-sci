@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class BooleanTestA {
+public class BooleanTest {
     public static void main(String[] args) throws Exception {
         Scanner keyboard = new Scanner(System.in);
 
