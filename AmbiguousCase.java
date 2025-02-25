@@ -17,7 +17,6 @@ public class AmbiguousCase {
         keyboard.close();
 
         if (angleB < 90 || Double.isNaN(angleB) == true ) {
-            
             if (a < h) {
                 System.out.println("There is no triangle.");
             } else if (a == h) {
