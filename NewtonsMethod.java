@@ -16,7 +16,7 @@ public class NewtonsMethod {
                     guess = approx;
                     System.out.println(approx);
                 } else {
-                    System.out.println("You have found one root which is " + (Math.round(guess)));
+                    System.out.println("A root has been found: " + (Math.round(guess)));
                     System.out.println("Would you like to try again? [y/n]");
 
                     if (keyboard.next().charAt(0) != 'y') {
