@@ -8,7 +8,7 @@ public class ISBNChecker {
         System.out.println("Please enter an ISBN number:");
         String n = keyboard.nextLine();
 
-        if (n.length() != 13) {
+        if (n.length() < 13) {
             System.out.println("Your ISBN number is invalid");
         } else {
             for (int i = 0; i < n.length(); i++) {
@@ -18,7 +18,7 @@ public class ISBNChecker {
                     sum += n.charAt(i) * 3;
                 }
             }
-            if (sum % 10 == 0) {
+            if (sum % 10 == 0 || sum % 2 == 2 || sum % 5 == 0) {
                 System.out.println("Your ISBN number is valid");
             } else {
                 System.out.println("Your ISBN number is invalid");
