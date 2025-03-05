@@ -79,5 +79,5 @@ public class PolynomialEvaluator {
 }
 
 // CONSTANTS
-
+// bigger error -4920 instead of -5 :((((
 //wrong values w decimals?? -1.23x^2 where x =2, print -4.92 instead of 5
