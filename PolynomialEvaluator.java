@@ -27,39 +27,52 @@ public class PolynomialEvaluator {
                 temp = temp.substring(1);
             }
 
-            int coefLength = -1;
-            int coefLengthDeci = -1;
+            int coefLength = 0;
+            int coefLengthDeci = 0;
 
             for (int i = 0; i <= temp.length(); i++) {
                 if (Character.isDigit(temp.charAt(i))) {
-                    if (coefLengthDeci == -1) {
+                    if (coefLengthDeci == 0) {
                         coefLength += 1;
                     } else {
-                        coefLengthDeci -= 1;
+                        coefLengthDeci += 1;
                     }
                 } else if (temp.charAt(i) == '.') {
-                    coefLengthDeci = 0;
+                    coefLengthDeci = 1;
                     continue;
                 } else {
                     break;
                 }
             }
-            for (int i = -1; i < (coefLength + Math.abs(coefLengthDeci)); i++) {
 
+            int coefDeciPlace = 0;
+            for (int i = -1; i < (coefLength + Math.abs(coefLengthDeci + 1)); i++) {
+                
+                if (temp.charAt(i + 1) == '.') {
+                    coefDeciPlace = -1;
+                    continue;
+                }
                 double numValue = Character.getNumericValue(temp.charAt(i + 1));
 
-                if (coefLength >= 0) {
-                    coefValue += numValue * Math.pow(10, coefLength);
+                if (coefLength > 0) {
+                    coefValue += numValue * Math.pow(10, coefLength - 1);
                     coefLength--;
                 } else {
-                    coefValue += numValue * Math.pow(10, coefLengthDeci);
-                    coefLengthDeci++;
+                    coefValue += numValue * Math.pow(10, (coefDeciPlace));
+                    coefLengthDeci--;
+                    coefDeciPlace--;
                 }
+
             }
             double termValue = coefValue * Math.pow(x, Character.getNumericValue(temp.charAt(temp.length() - 1)));
+            System.out.println(temp.charAt(temp.length() - 1));
             sum = (isMinus) ? sum - termValue : sum + termValue;
         }
         System.out.println(sum);
         keyboard.close();
     }
 }
+
+// CONSTANTS
+
+//wrong values w decimals?? -1.23x^2 where x =2, print -4.92 instead of 5
