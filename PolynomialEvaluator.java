@@ -28,44 +28,49 @@ public class PolynomialEvaluator {
             }
 
             int coefLength = 0;
-            int coefLengthDeci = 0;
+            int coefDeciPlace = 0;
+            int coefNumPlace = 0;
+            double expoTerm = 0;
+            double expoDig = 0;
+            boolean xValue = false;
+            double termValue = 0;
 
-            for (int i = 0; i <= temp.length(); i++) {
-                if (Character.isDigit(temp.charAt(i))) {
-                    if (coefLengthDeci == 0) {
-                        coefLength += 1;
-                    } else {
-                        coefLengthDeci += 1;
-                    }
-                } else if (temp.charAt(i) == '.') {
-                    coefLengthDeci = 1;
-                    continue;
+            for (int i = 0; i < temp.length(); i++) {
+                if (temp.charAt(i) != 'x' && xValue == false) {
+                    coefLength += 1; 
                 } else {
-                    break;
+                    xValue = true;
+                    expoDig += 1;
                 }
             }
+            expoDig = expoDig - 2;
+            coefNumPlace = coefLength - 1;
 
-            int coefDeciPlace = 0;
-            for (int i = -1; i < (coefLength + Math.abs(coefLengthDeci + 1)); i++) {
-                
-                if (temp.charAt(i + 1) == '.') {
+            for (int i = 0; i < coefLength; i++) {
+                if (temp.charAt(i) == '.') {
                     coefDeciPlace = -1;
                     continue;
                 }
-                double numValue = Character.getNumericValue(temp.charAt(i + 1));
+                double numValue = Character.getNumericValue(temp.charAt(i));
 
-                if (coefLength > 0) {
-                    coefValue += numValue * Math.pow(10, coefLength - 1);
-                    coefLength--;
+                if (coefNumPlace >= 0) {
+                    coefValue += numValue * Math.pow(10, coefNumPlace);
+                    coefNumPlace--;
                 } else {
                     coefValue += numValue * Math.pow(10, (coefDeciPlace));
-                    coefLengthDeci--;
                     coefDeciPlace--;
                 }
 
             }
-            double termValue = coefValue * Math.pow(x, Character.getNumericValue(temp.charAt(temp.length() - 1)));
-            System.out.println(temp.charAt(temp.length() - 1));
+            if (xValue == true) {
+                for (int i = coefLength + 2; i < temp.length(); i++) {
+                    expoTerm += Character.getNumericValue(temp.charAt(i)) * Math.pow(10,expoDig - 1);
+                    expoDig --;
+                }
+                termValue = coefValue * Math.pow(x, expoTerm);
+            } else {
+                termValue = coefValue;
+            }
             sum = (isMinus) ? sum - termValue : sum + termValue;
         }
         System.out.println(sum);
