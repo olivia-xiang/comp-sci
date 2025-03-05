@@ -28,6 +28,7 @@ public class PolynomialEvaluator {
             }
 
             int coefLength = 0;
+            int deciLength = 0;
             int coefDeciPlace = 0;
             int coefNumPlace = 0;
             double expoTerm = 0;
@@ -35,9 +36,14 @@ public class PolynomialEvaluator {
             boolean xValue = false;
             double termValue = 0;
 
+            // FICX HERE YHR DECIMAL COUNTUNG IS WRONG
             for (int i = 0; i < temp.length(); i++) {
-                if (temp.charAt(i) != 'x' && xValue == false) {
-                    coefLength += 1; 
+                if (xValue == false && temp.charAt(i) != 'x') {
+                    if (deciLength == 0 && temp.charAt(i) != '.') {
+                        coefLength += 1;
+                    } else {
+                        deciLength += 1;
+                    }
                 } else {
                     xValue = true;
                     expoDig += 1;
@@ -46,7 +52,7 @@ public class PolynomialEvaluator {
             expoDig = expoDig - 2;
             coefNumPlace = coefLength - 1;
 
-            for (int i = 0; i < coefLength; i++) {
+            for (int i = 0; i < coefLength + deciLength; i++) {
                 if (temp.charAt(i) == '.') {
                     coefDeciPlace = -1;
                     continue;
