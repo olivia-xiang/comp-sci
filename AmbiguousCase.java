@@ -27,7 +27,7 @@ public class AmbiguousCase {
                 System.out.println("There is one triangle.");
             }
         } else {
-            System.out.println((a < b || a == h) ? "There is no triangle." : "There is one triangle.");
+            System.out.println((a < b || a == b) ? "There is no triangle." : "There is one triangle.");
         }
     }
 }
