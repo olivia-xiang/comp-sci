@@ -7,19 +7,23 @@ public class PolynomialEvaluator3 {
         double sum = 0;
 
         System.out.println("Please enter a polynomial in the form f(x)=...");
-        StringTokenizer poly = new StringTokenizer(keyboard.nextLine().substring(keyboard.nextLine().indexOf(('=') + 1)));
+        String input = keyboard.nextLine();
+
+        StringTokenizer poly = new StringTokenizer(input.substring(input.indexOf('=') + 1), " ");
         System.out.println("Please enter the value of x");
         double x = keyboard.nextDouble();
 
         while (poly.hasMoreTokens()) {
             String term = poly.nextToken();
             String coeff = "";
-            coeff += ((term.indexOf('x') != -1) ? term.substring(0,term.indexOf('x')) : term.substring(0,term.length())); 
             String expo = "";
-            expo += ((term.indexOf('^') != -1) ? term.substring(('^') + 1) : "0");
 
-           sum += Double.parseDouble(coeff) * Math.pow(x, Double.parseDouble(expo));
+            coeff += ((term.indexOf('x') != -1) ? term.substring(0,term.indexOf('x')) : term.substring(0,term.length())); 
+            expo += ((term.indexOf('^') != -1) ? term.substring(term.indexOf('^') + 1) : "0");
+
+            sum += Double.parseDouble(coeff) * Math.pow(x, Double.parseDouble(expo));
         }
         System.out.println("The value of f(" + (int)x + ") = " + sum);
+        keyboard.close();
     }
 }
