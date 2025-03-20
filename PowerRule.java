@@ -13,16 +13,16 @@ public class PowerRule {
         keyboard.close();
 
         String[] coeffArray = coeff.split(" ");
-        String[] degreeArray = degree.split(" ");
+        String[] expoArray = degree.split(" ");
 
         for (int i = 0; i < coeffArray.length; i ++) {
-            int expo = Integer.parseInt(degreeArray[i]) - 1;
-            double term = Double.parseDouble(coeffArray[i]) * Integer.parseInt(degreeArray[i]);
-            firstDeriv += ((Integer.parseInt(degreeArray[i]) == 1) ? Double.toString(term) : Double.toString(term) + "x^" + expo) + " ";  
-            //firstDeriv += ((i + 1 < coeffArray.length) ? ((coeffArray[i + 1].indexOf(0)) == '1' ? "" : "+") : "");
+            int expo = Integer.parseInt(expoArray[i]) - 1;
+            double term = Double.parseDouble(coeffArray[i]) * Integer.parseInt(expoArray[i]);
+            
+            firstDeriv += (term > 0 && i != 0 ? "+" : "");  
+            firstDeriv += ((Integer.parseInt(expoArray[i]) == 1) ? Double.toString(term) : Double.toString(term) + "x^" + expo) + " ";
             if (expo > 0) {
-                secondDeriv += (((Integer.parseInt(degreeArray[i]) - 1) <= 1) ? Double.toString(term * expo) : Double.toString(term * expo) + "x^" + (expo - 1)) + " ";
-                //secondDeriv += ((i + 1 < coeffArray.length) ? ((coeffArray[i + 1].indexOf(0)) == '-' ? "" : "+") : "");
+                secondDeriv += (((Integer.parseInt(expoArray[i]) - 1) <= 1) ? Double.toString(term * expo) : Double.toString(term * expo) + "x^" + (expo - 1)) + " ";
             }
         }
         System.out.println(firstDeriv);
