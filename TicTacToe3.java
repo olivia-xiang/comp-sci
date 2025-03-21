@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TicTacToe3 {
@@ -5,10 +6,20 @@ public class TicTacToe3 {
         char piece = (player == 1 ? 'X' : 'O');
         System.out.println("Player " + player + ", please choose a coordinate to place your " + piece + " on the board");
     }
-    
-    // public static char[][] printBoard (int col, int row, char[][] board) {
-        
-    // }
+    public static void updateBoard (char[][]board, int letterCoordinate, int numberCoordinate, int player) {
+        board[letterCoordinate][numberCoordinate] = (player == 1 ? 'X' : 'O');
+    }
+    public static void printBoard (char[][] board) {
+        for (int col = 0; col < board.length; col++) {
+            for (int row = 0; row < board[col].length; row++) {
+                System.out.print(board[col][row]);
+                    if (row == 7) {
+                        System.out.println();
+                        break;
+                }
+            }
+        }
+    }
 
     public static void main (String[] args) {
         Scanner keyboard = new Scanner (System.in);
@@ -20,8 +31,10 @@ public class TicTacToe3 {
 
         int player = 1;
         boolean badInput = true;
-        String[] goodLetterInputs = {"A", "B", "C"};
-        String[] goodNumberInputs = {"1", "2", "3"};
+        char letterCoordinate = 'n';
+        char numberCoordinate = 'n';
+        String goodLetterInputs = "ABC";
+        String goodNumberInputs = "123";
 
         // Builds board inside of board 2D array
         for (int col = 0; col < board.length; col++) {
@@ -43,49 +56,63 @@ public class TicTacToe3 {
                 } else {
                     board[col][row] = ' ';
                 }
-                // System.out.print(board[col][row]);
-                // if (row == 7) {
-                //     System.out.println();
-                //     break;
-                // }
             }
         }
         // Welcome message and instructions
         System.out.println("Welcome to Tic Tac Toe! How this game will work as follows");
         System.out.println("1. Player 1 and Player 2 will take turns placing X and O on the board with Player 1 starting first with piece X");
-        System.out.println("2. To indicate the location, refer to the boxes by their coordinate values with a space in between");
-        System.out.println("For example the top left corner is A 1");
+        System.out.println("2. To indicate the location, refer to the boxes by their coordinate values");
+        System.out.println("For example the top left corner is A1");
         System.out.println("3. A win occurs when rows are completed vertically, horizontally or diagonally");
         System.out.println("Good Luck! :)");
         System.out.println();
 
         badLoop:
-        while (badInput) {
+        while (badInput) { 
+            printBoard(board);
             turnAction(player);
-            String coordinate = keyboard.nextLine();
-            String letterCoordinate = (coordinate.indexOf(" ") != -1 ? coordinate.substring(0, coordinate.indexOf(" ")) : "");
-            String numberCoordinate = (coordinate.indexOf(" ") != -1 ? coordinate.substring(coordinate.indexOf(" ") + 1) : "");
-            
+            System.out.println("Please enter the letter coordinate: ");
+            letterCoordinate = keyboard.next().charAt(0);
+            System.out.println("Please enter the number coordinate: ");
+            numberCoordinate = keyboard.next().charAt(0);
+
+            for (int i = 0; i < goodLetterInputs.length(); i++) {
+                if (goodLetterInputs.charAt(i) == letterCoordinate) {
+                    for (int j = 0; j < goodNumberInputs.length(); j++) {
+                        if (goodNumberInputs.charAt(i) == numberCoordinate) {
+                            break badLoop;
+                        }
+                    }
+                }
+            }
+            // letterCoordinate = "";
+            // numberCoordinate = "";
+
+            // letterCoordinate += (coordinate.indexOf(" ") != -1 ? coordinate.substring(0, coordinate.indexOf(" ")) : "");
+            // numberCoordinate += (coordinate.indexOf(" ") != -1 ? coordinate.substring(coordinate.indexOf(" ") + 1) : "");
+
             // Checks if the coordinates entered are valid
-            for (int i = 0; i < goodLetterInputs.length; i++) {
-                if (goodLetterInputs[i].equals(letterCoordinate.toUpperCase())) {
-                    break;
-                } else if (i == 2) {
-                    System.out.println("Invalid letter coordinate, please try again");
-                    continue badLoop;
-                }
-            }
-            for (int i = 0; i < goodNumberInputs.length; i++) {
-                if (goodNumberInputs[i].equals(numberCoordinate)) {
-                    badInput = false;
-                    break;
-                } else if (i == 2) {
-                    System.out.println("Invalid number coordinate, please try again");
-                    continue badLoop;
-                }
-            }
-        
-        player = player == 1 ? 2 : 1;
+            // for (int i = 0; i < goodLetterInputs.length; i++) {
+            //     if (goodLetterInputs[i] == letterCoordinate) {
+            //         break;
+            //     } else if (i == 2) {
+            //         System.out.println("Invalid letter coordinate, please try again");
+            //         continue badLoop;
+            //     }
+            // }
+            // for (int i = 0; i < goodNumberInputs.length; i++) {
+            //     if (goodNumberInputs[i].equals(numberCoordinate)) {
+            //         badInput = false;
+            //         break;
+            //     } else if (i == 2) {
+            //         System.out.println("Invalid number coordinate, please try again");
+            //         continue badLoop;
+            //     }
+            // }
+       
         }
-    }
+        // updateBoard(board, getNumericalValue((char)letterCoordinate) - 64, numberCoordinate.getNumericalValue(), player);
+        // printBoard(board);
+        player = player == 1 ? 2 : 1;
+    } 
 }
