@@ -18,15 +18,23 @@ public class PowerRule {
         for (int i = 0; i < coeffArray.length; i ++) {
             int expo = Integer.parseInt(expoArray[i]) - 1;
             double term = Double.parseDouble(coeffArray[i]) * Integer.parseInt(expoArray[i]);
-            
-            firstDeriv += (term > 0 && i != 0 ? "+" : "");  
-            firstDeriv += ((Integer.parseInt(expoArray[i]) == 1) ? Double.toString(term) : Double.toString(term) + "x^" + expo) + " ";
+
+            System.out.println(term % 1 == 0 ? "int" : "dec");
+            if (term != 0 && expo >= 0) {
+                firstDeriv += (term > 0 && i != 0 ? "+" : "")  + (term % 1 == 0 ? Integer.toString((int)term) : Double.toString(term));  
+                //secondDeriv += (term > 0 && i != 0 && expo != 0 ? "+" : "") + ((expo > 0) ? Double.toString(term * expo) : ""); 
+                if (expo > 0) {
+                    secondDeriv += (term > 0 && i != 0 ? "+" : "") + (term % 1 == 0 ? Integer.toString((int)term * expo) : Double.toString(term * expo));
+                }
+            }
             if (expo > 0) {
-                secondDeriv += (((Integer.parseInt(expoArray[i]) - 1) <= 1) ? Double.toString(term * expo) : Double.toString(term * expo) + "x^" + (expo - 1)) + " ";
+                // firstDeriv += ((expo == 1) ? "x" : "x^" + expo) + " ";
+                // secondDeriv += (((expo - 1) < 1) ? "" : ((expo == 2) ? "x" : "x^" + (expo -1))) + " ";
+                firstDeriv += "x^" + expo + " ";
+                secondDeriv += ((expo - 1) > 0 ? "x^" + (expo - 1) : "") + " ";
             }
         }
-        System.out.println(firstDeriv);
-        System.out.println(secondDeriv);
+    System.out.println(firstDeriv);
+    System.out.println(secondDeriv);
     }
 }
-
