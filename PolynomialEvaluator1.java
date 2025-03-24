@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class PolynomialEvaluator {
+public class PolynomialEvaluator1 {
     public static void main(String[] args) throws Exception {
         Scanner keyboard = new Scanner(System.in);
         double sum = 0;
