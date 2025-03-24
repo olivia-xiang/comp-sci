@@ -42,14 +42,16 @@ public class TicTacToe {
         char piece = (player == 1 ? 'X' : 'O');
         boolean win = false;
         String method = "";
-
         if (board[numCoord][1] == piece && board[numCoord][3] == piece && board[numCoord][5] == piece) {
             win = true;
             method += "horizontally";
         } else if (board[1][letterCoord] == piece && board[3][letterCoord] == piece && board[5][letterCoord] == piece) {
             win = true;
             method += "vertically";
-        } else if ((board[1][1] == piece && board[5][5] == piece || board[5][1] == piece && board[1][5] == piece) && board[3][3] == piece) {
+        } else if (board[1][1] == piece && board[3][3] == piece && board[5][5] == piece) {
+            win = true;
+            method += "diagonally";
+        } else if (board[5][1] == piece && board[3][3] == piece && board[1][5] == piece) {
             win = true;
             method += "diagonally";
         } else if (piecesPlaced == 9) {
@@ -57,7 +59,7 @@ public class TicTacToe {
                 return true;
         }
         if (win) {
-            System.out.println("Player " + player + " wins " + method + ", congratulations");
+            System.out.println("Player " + player + " wins " + method);
             return true;
         } 
         return false;
@@ -65,20 +67,17 @@ public class TicTacToe {
 
     public static void main (String[] args) {
         Scanner keyboard = new Scanner (System.in);
-
         char [][] board = new char [6][6];
         int colAsciiLetter = 65;
         char rowNumber = '1';
-
         int player = 1;
-        boolean badInput = true;
         char letterCoordinate = 'n';
         char numberCoordinate = 'n';
         String goodLetterInputs = "ABC";
         String goodNumberInputs = "123";
-
         int piecesPlaced = 0;
 
+        // Stores coordinate labels and grid markers into board
         for (int col = 0; col < board.length; col++) {
             for (int row = 0; row < board[col].length; row++) {
                 if (col == 0 && row % 2 == 1) {
@@ -97,18 +96,17 @@ public class TicTacToe {
             }   
         }
         
-        // Welcome message and instructions
         System.out.println("Welcome to Tic Tac Toe! The game will work as follows");
         System.out.println("1. Player 1 and Player 2 will take turns placing X and O on the board with Player 1 starting first with piece X");
-        System.out.println("2. To indicate the location, refer to the boxes by their coordinate values");
-        System.out.println("For example the top left corner is A1, ensure that there is no space inbetween");
-        System.out.println("3. A win occurs when rows are completed vertically, horizontally or diagonally");
+        System.out.println("2. To indicate the location, refer to the boxes with their coordinate values");
+        System.out.println("For example the top left corner is A1, ensure that there is no space inbetween when entering it");
+        System.out.println("3. A win occurs when boxes are completed vertically, horizontally or diagonally by one piece");
         System.out.println("Good Luck! :)");
         System.out.println();
         printBoard(board);
 
         askInput:
-        while (badInput) { 
+        while (true) { 
             turnAction(player);
             String userInput = keyboard.nextLine();
             letterCoordinate = userInput.toUpperCase().charAt(0);
@@ -122,16 +120,16 @@ public class TicTacToe {
                             break inputCheck;
                         }
                     }
-                    System.out.println("Please enter a number located on the grid");
+                    System.out.println("Please enter a number located on the grid: " + numberCoordinate + " is invalid");
                     continue askInput;
                 } else if (i == 2) {
-                    System.out.println("Please enter a letter located on the grid");
+                    System.out.println("Please enter a letter located on the grid: " + userInput.charAt(0) + " is invalid");
                     continue askInput;
-                } continue;
+                }
             }
 
             if (updateBoard(board, adjustCoord(letterCoordinate), adjustCoord(numberCoordinate), player)) {
-                System.out.println("That space is already taken, please enter another");
+                System.out.println("Coordinate" + letterCoordinate + numberCoordinate + " is already taken, please enter another coordinate");
                 continue askInput;
             }
             piecesPlaced++;
