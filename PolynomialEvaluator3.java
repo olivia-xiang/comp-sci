@@ -19,11 +19,10 @@ public class PolynomialEvaluator3 {
             String expo = "";
 
             coeff += ((term.indexOf('x') != -1) ? term.substring(0,term.indexOf('x')) : term.substring(0,term.length())); 
-            expo += ((term.indexOf('^') != -1) ? term.substring(term.indexOf('^') + 1) : "0");
-
+            expo += ((term.indexOf('^') != -1) ? term.substring(term.indexOf('^') + 1) : (term.indexOf('x') != -1) ? "1" : "0");
             sum += Double.parseDouble(coeff) * Math.pow(x, Double.parseDouble(expo));
         }
-        System.out.println("The value of f(" + (int)x + ") = " + sum);
+        System.out.println("The value of f(" + (int)x + ")=" + sum);
         keyboard.close();
     }
 }
