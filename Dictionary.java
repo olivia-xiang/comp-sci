@@ -6,8 +6,8 @@ import java.util.Scanner;
 import java.util.HashSet;
 
 public class Dictionary {
-    public static void main (String[] args) throws Exception {
-        Scanner keyboard = new Scanner (System.in);
+    public static void main(String[] args) throws Exception {
+        Scanner keyboard = new Scanner(System.in);
         BufferedReader inputStream = null;
         String line = "";
         HashSet<String> dictionary = new HashSet<String>();
@@ -28,7 +28,8 @@ public class Dictionary {
         } finally {
             System.out.println("Spell check of your sentence:");
             for (int i = 0; i < inputArray.length; i++) {
-                System.out.println((i + 1) + ". " + inputArray[i] + " <" + (dictionary.contains(inputArray[i].toLowerCase()) ? "" : "in") + "valid>");
+                System.out.println((i + 1) + ". " + inputArray[i] + " <"
+                        + (dictionary.contains(inputArray[i].toLowerCase()) ? "" : "in") + "valid>");
             }
             if (inputStream != null) {
                 inputStream.close();
