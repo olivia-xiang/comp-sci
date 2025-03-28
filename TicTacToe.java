@@ -35,7 +35,6 @@ public class TicTacToe {
                 System.out.print(board[col][row]);
                 if (row == 5) {
                     System.out.println();
-                    break;
                 }
             }
         }
@@ -45,25 +44,47 @@ public class TicTacToe {
         char piece = (player == 1 ? 'X' : 'O');
         boolean win = false;
         String method = "";
+        int horizontally = 0;
+        int vertically = 0;
+        int diagonally = 0;
 
-        if (board[numCoord][1] == piece && board[numCoord][3] == piece && board[numCoord][5] == piece) {
-            win = true;
-            method += "horizontally ";
-        } else if (board[1][letterCoord] == piece && board[3][letterCoord] == piece && board[5][letterCoord] == piece) {
-            win = true;
-            method += "vertically";
-        } else if ((board[1][1] == piece && board[5][5] == piece
-                || board[5][1] == piece && board[1][5] == piece) && board[3][3] == piece) {
-            win = true;
-            method += "diagonally";
-        } else if (piecesPlaced == 9) {
-            System.out.println("Player 1 and Player 2 tie!");
-            return true;
+        for (int col = 0; col < board.length; col++) {
+            for (int row = 0; row < board[col].length; row++) {
+                if (board[col][row] == piece) {
+                    if (numCoord == col) {
+                        horizontally++;
+                    } else if (letterCoord == row) {
+                        vertically++;
+                    } else if (col == row || Math.abs(col - row) == 4) {
+                        diagonally++;
+                    }
+                }
+            }
         }
-        if (win) {
-            System.out.println("Player " + player + " wins " + method);
-            return true;
+        method += (vertically == 3 ? "vertically " : (horizontally == 3 ? "horizontally " : (diagonally == 3 ? "diagonally " : "")));
+        if (method != "") {
+            System.out.println()
         }
+        // if (board[numCoord][1] == piece && board[numCoord][3] == piece &&
+        // board[numCoord][5] == piece) {
+        // win = true;
+        // method += "horizontally ";
+        // } else if (board[1][letterCoord] == piece && board[3][letterCoord] == piece
+        // && board[5][letterCoord] == piece) {
+        // win = true;
+        // method += "vertically";
+        // } else if ((board[1][1] == piece && board[5][5] == piece
+        // || board[5][1] == piece && board[1][5] == piece) && board[3][3] == piece) {
+        // win = true;
+        // method += "diagonally";
+        // } else if (piecesPlaced == 9) {
+        // System.out.println("Player 1 and Player 2 tie!");
+        // return true;
+        // }
+        // if (win) {
+        // System.out.println("Player " + player + " wins " + method);
+        // return true;
+        // }
         return false;
     }
 
@@ -114,8 +135,7 @@ public class TicTacToe {
             char letterCoordinate = userInput.toUpperCase().charAt(0);
             char numberCoordinate = userInput.charAt(1);
 
-            inputCheck: 
-            if (userInput.length() == 2) {
+            inputCheck: if (userInput.length() == 2) {
                 for (int i = 0; i < goodLetterInputs.length(); i++) {
                     if (goodLetterInputs.charAt(i) == letterCoordinate) {
                         for (int j = 0; j < goodNumberInputs.length(); j++) {
@@ -124,7 +144,8 @@ public class TicTacToe {
                             }
                         }
                         System.out
-                                .println("Please enter a number located on the grid: " + numberCoordinate + " is invalid");
+                                .println("Please enter a number located on the grid: " + numberCoordinate
+                                        + " is invalid");
                         continue askInput;
                     } else if (i == 2) {
                         System.out.println(
