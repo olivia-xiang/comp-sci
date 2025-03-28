@@ -19,7 +19,7 @@ public class Dictionary {
         try {
             inputStream = new BufferedReader(new FileReader("dictionary.txt"));
             while ((line = inputStream.readLine()) != null) {
-                dictionary.add(line);
+                dictionary.add(line.toLowerCase());
             }
         } catch (FileNotFoundException e) {
             System.out.println("Error opening file");
