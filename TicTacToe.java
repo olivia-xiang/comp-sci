@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class TicTacToe {
     public static void turnAction(int player) {
@@ -68,11 +69,10 @@ public class TicTacToe {
         int colAsciiLetter = 65;
         char rowNumber = '1';
         int player = 1;
-        String goodLetterInputs = "ABC";
-        String goodNumberInputs = "123";
         int piecesPlaced = 0;
+        char letterCoordinate = ' ';
+        char numberCoordinate = ' ';
 
-        // Stores coordinate labels and grid markers into board
         for (int col = 0; col < board.length; col++) {
             for (int row = 0; row < board[col].length; row++) {
                 if (col == 0 && row % 2 == 1) {
@@ -106,32 +106,22 @@ public class TicTacToe {
         askInput: while (true) {
             turnAction(player);
             String userInput = keyboard.nextLine();
-            char letterCoordinate = userInput.toUpperCase().charAt(0);
-            char numberCoordinate = userInput.charAt(1);
 
             inputCheck: if (userInput.length() == 2) {
-                for (int i = 0; i < goodLetterInputs.length(); i++) {
-                    if (goodLetterInputs.charAt(i) == letterCoordinate) {
-                        for (int j = 0; j < goodNumberInputs.length(); j++) {
-                            if (goodNumberInputs.charAt(j) == numberCoordinate) {
-                                break inputCheck;
-                            }
-                        }
-                        System.out
-                                .println("Please enter a number located on the grid: " + numberCoordinate
-                                        + " is invalid");
-                        continue askInput;
-                    } else if (i == 2) {
-                        System.out.println(
-                                "Please enter a letter located on the grid: " + userInput.charAt(0) + " is invalid");
-                        continue askInput;
+                letterCoordinate = userInput.toUpperCase().charAt(0);
+                numberCoordinate = userInput.charAt(1);
+
+                if ((Pattern.compile("[ABC]").matcher(Character.toString(letterCoordinate))).find()) {
+                    if ((Pattern.compile("[123]").matcher(Character.toString(numberCoordinate))).find()) {
+                        break inputCheck;
                     }
                 }
+                System.out.println("Invalid coordinate: Letter or number coordinate not present on the board");
+                continue askInput;
             } else {
-                System.out.println("The coordinate is too long, please enter a valid coordinate");
+                System.out.println("Invalid coordinate: Coordinate needs to be two characters long");
                 continue askInput;
             }
-
             if (updateBoard(board, adjustCoord(letterCoordinate), adjustCoord(numberCoordinate), player)) {
                 System.out.println("Coordinate " + letterCoordinate + numberCoordinate
                         + " is already taken, please enter another coordinate");
