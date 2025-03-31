@@ -10,6 +10,7 @@ public class Dictionary {
         Scanner keyboard = new Scanner(System.in);
         BufferedReader inputStream = null;
         String line = "";
+        String[] puncuation = {",", ".", ";", ":", "?", "!", "'"};
         HashSet<String> dictionary = new HashSet<String>();
 
         System.out.println("Please enter a sentence:");
@@ -28,13 +29,16 @@ public class Dictionary {
         } finally {
             System.out.println("Spell check of your sentence:");
             for (int i = 0; i < inputArray.length; i++) {
+                for (int j = 0; j < puncuation.length; j++) {
+                    inputArray[i] = (inputArray[i].indexOf(puncuation[j]) != -1) ? inputArray[i].substring(0, inputArray[i].indexOf(puncuation[j])) + inputArray[i].substring((inputArray[i].indexOf(puncuation[j])) + 1) : inputArray[i]);
                 System.out.println((i + 1) + ". " + inputArray[i] + " <"
                         + (dictionary.contains(inputArray[i].toLowerCase()) ? "" : "in") + "valid>");
             }
             if (inputStream != null) {
                 inputStream.close();
+                }
+                keyboard.close();
             }
-            keyboard.close();
         }
     }
 }
