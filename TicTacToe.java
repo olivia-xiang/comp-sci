@@ -9,8 +9,8 @@ public class TicTacToe {
                 .println("Player " + player + ", please choose a coordinate to place your " + piece + " on the board");
     }
 
-    public static int adjustCoord(int coordinate) {
-        switch (coordinate) {
+    public static int adjustCoord(int coord) {
+        switch (coord) {
             case 49:
             case 65:
                 return 1;
@@ -43,24 +43,23 @@ public class TicTacToe {
 
     public static boolean findWinner(char[][] board, int player, int letterCoord, int numCoord, int piecesPlaced) {
         char piece = (player == 1 ? 'X' : 'O');
+        String method = "";
 
         if (board[numCoord][1] == piece && board[numCoord][3] == piece &&
                 board[numCoord][5] == piece) {
-            System.out.println("Player " + player + " wins horizontally");
-            return true;
+            method += "horizontally";
         } else if (board[1][letterCoord] == piece && board[3][letterCoord] == piece
                 && board[5][letterCoord] == piece) {
-            System.out.println("Player " + player + " wins vertically");
-            return true;
+            method += "vertically";
         } else if ((board[1][1] == piece && board[5][5] == piece
                 || board[5][1] == piece && board[1][5] == piece) && board[3][3] == piece) {
-            System.out.println("Player " + player + " wins diagonally");
-            return true;
+            method += "diagonally";
         } else if (piecesPlaced == 9) {
-            System.out.println("Player 1 and Player 2 tie!");
+            System.out.println("Player 1 and Player 2 tie");
             return true;
         }
-        return false;
+        System.out.println(method == "" ? "" : "Player " + player + " wins " + method);
+        return (method == "" ? false : true);
     }
 
     public static void main(String[] args) {
@@ -70,8 +69,8 @@ public class TicTacToe {
         char rowNumber = '1';
         int player = 1;
         int piecesPlaced = 0;
-        char letterCoordinate = ' ';
-        char numberCoordinate = ' ';
+        char letterCoord = ' ';
+        char numCoord = ' ';
 
         for (int col = 0; col < board.length; col++) {
             for (int row = 0; row < board[col].length; row++) {
@@ -107,33 +106,32 @@ public class TicTacToe {
             turnAction(player);
             String userInput = keyboard.nextLine();
 
-            inputCheck: if (userInput.length() == 2) {
-                letterCoordinate = userInput.toUpperCase().charAt(0);
-                numberCoordinate = userInput.charAt(1);
+            if (userInput.length() == 2) {
+                letterCoord = userInput.toUpperCase().charAt(0);
+                numCoord = userInput.charAt(1);
 
-                if ((Pattern.compile("[ABC]").matcher(Character.toString(letterCoordinate))).find()) {
-                    if ((Pattern.compile("[123]").matcher(Character.toString(numberCoordinate))).find()) {
-                        break inputCheck;
+                if ((Pattern.compile("[ABC]").matcher(Character.toString(letterCoord))).find()) {
+                    if ((Pattern.compile("[123]").matcher(Character.toString(numCoord))).find()) {
+                        if (updateBoard(board, adjustCoord(letterCoord), adjustCoord(numCoord), player)) {
+                            System.out.println("Coordinate " + letterCoord + numCoord
+                                    + " is already taken, please enter another coordinate");
+                            continue askInput;
+                        }
+                        piecesPlaced++;
+                        printBoard(board);
+                        if (findWinner(board, player, adjustCoord(letterCoord), adjustCoord(numCoord),
+                                piecesPlaced)) {
+                            keyboard.close();
+                            System.exit(1);
+                        }
+                        player = player == 1 ? 2 : 1;
+                        continue askInput;
                     }
                 }
                 System.out.println("Invalid coordinate: Letter or number coordinate not present on the board");
-                continue askInput;
             } else {
                 System.out.println("Invalid coordinate: Coordinate needs to be two characters long");
-                continue askInput;
             }
-            if (updateBoard(board, adjustCoord(letterCoordinate), adjustCoord(numberCoordinate), player)) {
-                System.out.println("Coordinate " + letterCoordinate + numberCoordinate
-                        + " is already taken, please enter another coordinate");
-                continue askInput;
-            }
-            piecesPlaced++;
-            printBoard(board);
-            if (findWinner(board, player, adjustCoord(letterCoordinate), adjustCoord(numberCoordinate), piecesPlaced)) {
-                keyboard.close();
-                System.exit(1);
-            }
-            player = player == 1 ? 2 : 1;
         }
     }
 }
