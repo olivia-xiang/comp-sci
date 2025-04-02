@@ -2,8 +2,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class TicTacToe {
-    public static void turnAction(int player) {
-        char piece = (player == 1 ? 'X' : 'O');
+    public static void turnAction(int player, char piece) {
         System.out.println();
         System.out
                 .println("Player " + player + ", please choose a coordinate to place your " + piece + " on the board");
@@ -22,9 +21,9 @@ public class TicTacToe {
         }
     }
 
-    public static boolean updateBoard(char[][] board, int letterCoord, int numCoord, int player) {
+    public static boolean updateBoard(char[][] board, int letterCoord, int numCoord, int player, char piece) {
         if (board[numCoord][letterCoord] == ' ') {
-            board[numCoord][letterCoord] = (player == 1 ? 'X' : 'O');
+            board[numCoord][letterCoord] = piece;
             return false;
         }
         return true;
@@ -41,8 +40,7 @@ public class TicTacToe {
         }
     }
 
-    public static boolean findWinner(char[][] board, int player, int letterCoord, int numCoord, int piecesPlaced) {
-        char piece = (player == 1 ? 'X' : 'O');
+    public static boolean findWinner(char[][] board, int player, int letterCoord, int numCoord, int piecesPlaced, char piece) {
         String method = "";
 
         if (board[numCoord][1] == piece && board[numCoord][3] == piece &&
@@ -68,6 +66,7 @@ public class TicTacToe {
         int colAsciiLetter = 65;
         char rowNumber = '1';
         int player = 1;
+        char piece = 'X';
         int piecesPlaced = 0;
         char letterCoord = ' ';
         char numCoord = ' ';
@@ -103,7 +102,7 @@ public class TicTacToe {
         printBoard(board);
 
         askInput: while (true) {
-            turnAction(player);
+            turnAction(player, piece);
             String userInput = keyboard.nextLine();
 
             if (userInput.length() == 2) {
@@ -112,7 +111,7 @@ public class TicTacToe {
 
                 if ((Pattern.compile("[ABC]").matcher(Character.toString(letterCoord))).find()) {
                     if ((Pattern.compile("[123]").matcher(Character.toString(numCoord))).find()) {
-                        if (updateBoard(board, adjustCoord(letterCoord), adjustCoord(numCoord), player)) {
+                        if (updateBoard(board, adjustCoord(letterCoord), adjustCoord(numCoord), player, piece)) {
                             System.out.println("Coordinate " + letterCoord + numCoord
                                     + " is already taken, please enter another coordinate");
                             continue askInput;
@@ -120,11 +119,12 @@ public class TicTacToe {
                         piecesPlaced++;
                         printBoard(board);
                         if (findWinner(board, player, adjustCoord(letterCoord), adjustCoord(numCoord),
-                                piecesPlaced)) {
+                                piecesPlaced, piece)) {
                             keyboard.close();
                             System.exit(1);
                         }
                         player = player == 1 ? 2 : 1;
+                        piece = piece == 'X' ? 'O' : 'X';
                         continue askInput;
                     }
                 }
