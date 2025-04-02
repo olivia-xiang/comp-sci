@@ -30,17 +30,13 @@ public class TicTacToe {
     }
 
     public static void printBoard(char[][] board) {
-        for (int col = 0; col < board.length; col++) {
-            for (int row = 0; row < board[col].length; row++) {
-                System.out.print(board[col][row]);
-                if (row == 5) {
-                    System.out.println();
-                }
-            }
+        for (char col[] : board) {
+            System.out.println(col);
         }
     }
 
-    public static boolean findWinner(char[][] board, int player, int letterCoord, int numCoord, int piecesPlaced, char piece) {
+    public static boolean findWinner(char[][] board, int player, int letterCoord, int numCoord, int piecesPlaced,
+            char piece) {
         String method = "";
 
         if (board[numCoord][1] == piece && board[numCoord][3] == piece &&
