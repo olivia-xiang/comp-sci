@@ -18,8 +18,10 @@ public class PopMachine {
     }
 
     public void popButton() {
-        if (numberOfPop >= 1) {
-        numberOfPop--;
+        if (numberOfPop >= 1 && amountOfMoney >= 1.5) {
+            numberOfPop--;
+        } else if (amountOfMoney < 1.5) {
+            System.out.println("Insufficent funds: pop is $1.5");
         } else {
             System.out.println("Sold out");
         }
@@ -27,6 +29,6 @@ public class PopMachine {
 
     public double coinReturn() {
         amountOfMoney -= priceOfPop;
-        return amountOfMoney;
+        return amountOfMoney; 
     }
 }
