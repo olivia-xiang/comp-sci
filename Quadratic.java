@@ -62,6 +62,9 @@ public class Quadratic {
     }
 
     public double[] getXIntercept() {
-        double[] intercept = 
+        double[] intercept = new double[2];
+        intercept[0] = (-b + Math.sqrt(discriminant)) / 2 * a;
+        intercept[1] = (-b - Math.sqrt(discriminant)) / 2 * a;
+        return intercept;
     }
 }
