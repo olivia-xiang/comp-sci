@@ -1,52 +1,56 @@
 public class Point {
-    private Point p1;
+    
+    private double x;
+    private double y;
 
-    public Point(double x, double y) {
-        p1 = new Point (x, y);
+    Point(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public Point() {
-        p1 = new Point(0, 0);
+    Point() {
+        this.x = 0;
+        this.y = 0;
     }
 
     public double getX() {
-        return p1.getX();
+        return x;
     }
 
     public double getY() {
-        return p1.getY();
+        return y;
     }
 
-    public Point difference(Point p2) {
-        return p1.difference(p2);
+    public Point difference(Point p) {
+        return new Point(x - p.getX(), y - p.getY());
     }
 
-    public Point sum (Point p2) {
-        return p1.sum(p2);
+    public Point sum (Point p) {
+        return new Point(x + p.getX(), y + p.getY());
     }
 
     public void displayCoordinate() {
         System.out.println("The x-coordinate is: " + getX());
-        System.out.println("The y coordinate is: " + getY());
+        System.out.println("The y-coordinate is: " + getY());
     }
 
-    public double distance(Point p2) {
-        return p1.distance(p2);
+    public double distance(Point p) {
+        return Math.sqrt(Math.pow(x + p.getX(), 2) + Math.pow(y + p.getY(), 2));
     }
 
-    public double slope(Point p2) {
-        return p1.slope(p2);
+    public double slope(Point p) {
+        return (y - p.getY()) / (x - p.getX());
     }
 
-    public double yIntercept(Point p2) {
-        return p1.yIntercept(p2);
+    public double yIntercept(Point p) {
+        return y - p.slope(p) * x;
     }
 
-    public Point midPoint(Point p2) {
-        return p1.midPoint(p2);
+    public Point midPoint(Point p) {
+        return new Point((x + p.getX()) / 2, (y + p.getY()) / 2);
     }
 
-    public void linearEquation(Point p2) {
-        System.out.println("y = " + slope(p2) + "x " + yIntercept(p2));
+    public void linearEquation(Point p) {
+        System.out.println("y = " + p.slope(p) + "x " + p.yIntercept(p));
     }
 }
