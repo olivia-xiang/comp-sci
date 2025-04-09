@@ -35,7 +35,7 @@ public class Point {
     }
 
     public double distance(Point p) {
-        return Math.sqrt(Math.pow(x + p.getX(), 2) + Math.pow(y + p.getY(), 2));
+        return Math.sqrt(Math.pow(difference(p).getX(), 2) + Math.pow(difference(p).getY(), 2));
     }
 
     public double slope(Point p) {
@@ -43,7 +43,8 @@ public class Point {
     }
 
     public double yIntercept(Point p) {
-        return y - p.slope(p) * x;
+        System.out.println(y - x * slope(p));
+        return y - slope(p) * x;
     }
 
     public Point midPoint(Point p) {
@@ -51,6 +52,6 @@ public class Point {
     }
 
     public void linearEquation(Point p) {
-        System.out.println("y = " + p.slope(p) + "x " + p.yIntercept(p));
+        System.out.println("y = " + slope(p) + "x " + (yIntercept(p) >= 0 ? "+ " + yIntercept(p) : "- " + -yIntercept(p)));
     }
 }
