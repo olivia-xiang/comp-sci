@@ -66,6 +66,8 @@ public enum Muppet {
         keyboard.close();
         if (traitToMuppet.containsKey(userInput)) {
             System.out.println("You are most similar to " + traitToMuppet.get(userInput));
+        } else {
+            System.out.println("You don't ressemble any muppet");
         }
     }
 }
