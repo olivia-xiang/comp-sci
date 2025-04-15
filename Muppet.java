@@ -9,7 +9,7 @@ public enum Muppet {
     ABBY_CADABBY("pink", "imaginative and playful", 4, 10),
     ZOE("yellow", "silly and upbeat", 3.0, 9),
     BABY_BEAR("brown", "adventurous and artistic", 5, 5),
-    COUNT_VON_COUNT("purple", "happy and helpful", 1832652, 10),
+    COUNT_VON_COUNT("purple", "outgoing and helpful", 1832652, 10),
     GABRIELLE("brown", "vibrant and curious", 6.75, 11),
     GROVER("blue", "enthusiatic and clumsy", 4, 10),
     ROSITA("teal", "optimistic and playful", 5, 12),
@@ -21,7 +21,7 @@ public enum Muppet {
     private double age;
     private int birthdayMonth;
 
-    Muppet(String puppetColor, String characteristic, double age, int birthdayMonth) {
+    Muppet (String puppetColor, String characteristic, double age, int birthdayMonth) {
         this.puppetColor = puppetColor;
         this.characteristic = characteristic;
         this.age = age;
@@ -46,10 +46,24 @@ public enum Muppet {
 
     public void whenBirthday() {
         System.out
-                .println("This puppet is turning " + ((age % 1 == 0 ? (int) age : age) + 1) + " in "
+                .println("This puppet is turning " + (age + 1) + " in "
                         + (birthdayMonth - month + (birthdayMonth - month > 0 ? 0 : 12)) + " months");
     }
 
+    // fix grammer 
+    public void colorMatch() {
+        boolean checkMatch = false;
+        System.out.print("There are ");
+        for (Muppet m : Muppet.values()) {
+            if (m.puppetColor == puppetColor && m.birthdayMonth != birthdayMonth) {
+                System.out.print(m.name() + " ");
+                checkMatch = true;
+            }
+        } 
+        System.out.print((checkMatch ? "who match " : "no puppets who match ") + "the color of " + puppetColor);
+    }
+
+    // nmaybe make more personalized to each character?
     public void personalityTest() {
         Hashtable<String, String> traitToMuppet = new Hashtable<>();
         Scanner keyboard = new Scanner(System.in);
@@ -73,6 +87,21 @@ public enum Muppet {
             System.out.println();
         } else {
             System.out.println("You don't ressemble any muppet");
+        }
+    }
+
+    public void personaTest() {
+        Scanner keyboard = new Scanner(System.in);
+        String[] chara = characteristic.split("and");
+        System.out.println("This is a personality test to see how well you match with this muppet: ");
+        System.out.println("Please answer each question with y or n");
+        for (int i = 0; i < chara.length; i++) {
+            while (true) {
+                System.out.println(i + ". Do you consider youself " + chara[i] + "?");
+                if (keyboard.nextLine().charAt(0) == 'y') {
+                    
+                } else if (ke)
+            }
         }
     }
 }
