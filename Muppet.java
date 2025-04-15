@@ -98,7 +98,8 @@ public enum Muppet {
         for (int i = 0; i < chara.length; i++) {
             while (true) {
                 System.out.println(i + ". Do you consider youself " + chara[i] + "?");
-                if (keyboard.nextLine().charAt(0) == 'y') {
+                char input = keyboard.nextLine().charAt(0);
+                if (input == 'y') {
                     
                 } else if (ke)
             }
