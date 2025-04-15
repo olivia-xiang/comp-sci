@@ -1,5 +1,6 @@
 public class Point {
-    
+
+    // most recent
     private double x;
     private double y;
 
@@ -25,7 +26,7 @@ public class Point {
         return new Point(x - p.getX(), y - p.getY());
     }
 
-    public Point sum (Point p) {
+    public Point sum(Point p) {
         return new Point(x + p.getX(), y + p.getY());
     }
 
@@ -39,19 +40,19 @@ public class Point {
     }
 
     public double slope(Point p) {
-        return (y - p.getY()) / (x - p.getX());
+        return (difference(p).getY() / difference(p).getX());
     }
 
     public double yIntercept(Point p) {
-        System.out.println(y - x * slope(p));
         return y - slope(p) * x;
     }
 
     public Point midPoint(Point p) {
-        return new Point((x + p.getX()) / 2, (y + p.getY()) / 2);
+        return new Point(sum(p).getX() / 2, sum(p).getY() / 2);
     }
 
     public void linearEquation(Point p) {
-        System.out.println("y = " + slope(p) + "x " + (yIntercept(p) >= 0 ? "+ " + yIntercept(p) : "- " + -yIntercept(p)));
+        System.out.println(
+                "y = " + slope(p) + "x " + (yIntercept(p) >= 0 ? "+ " + yIntercept(p) : "- " + -yIntercept(p)));
     }
 }

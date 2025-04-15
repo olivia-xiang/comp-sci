@@ -12,10 +12,6 @@ public class Dictionary {
         String line = "";
         HashSet<String> dictionary = new HashSet<String>();
 
-        System.out.println("Please enter a sentence:");
-        String input = keyboard.nextLine();
-        String[] inputArray = input.split(" ");
-
         try {
             inputStream = new BufferedReader(new FileReader("dictionary.txt"));
             while ((line = inputStream.readLine()) != null) {
@@ -26,15 +22,20 @@ public class Dictionary {
         } catch (IOException e) {
             System.out.println("Error creating file");
         } finally {
-            System.out.println("Spell check of your sentence:");
-            for (int i = 0; i < inputArray.length; i++) {
-                System.out.println((i + 1) + ". " + inputArray[i] + " <"
-                    + (dictionary.contains(inputArray[i].toLowerCase()) ? "" : "in") + "valid>");
-                }
-            }
             if (inputStream != null) {
                 inputStream.close();
-                }
-                keyboard.close();
             }
+            keyboard.close();
         }
+
+        System.out.println("Please enter a sentence:");
+        String input = keyboard.nextLine();
+        String[] inputArray = input.split(" ");
+
+        System.out.println("Spell check of your sentence:");
+        for (int i = 0; i < inputArray.length; i++) {
+            System.out.println((i + 1) + ". " + inputArray[i] + " <"
+                    + (dictionary.contains(inputArray[i].toLowerCase()) ? "" : "in") + "valid>");
+        }
+    }
+}
