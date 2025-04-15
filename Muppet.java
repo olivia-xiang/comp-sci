@@ -50,7 +50,7 @@ public enum Muppet {
                         + ((birthdayMonth - MONTH) + (birthdayMonth - MONTH > 0 ? 0 : 12)) + " months.");
     }
 
-    public static void personalityTest() {
+    public void personalityTest() {
         Hashtable<String, String> traitToMuppet = new Hashtable<>();
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please choose one of the following characteristics that best describes your personality: ");
@@ -65,7 +65,11 @@ public enum Muppet {
         String userInput = keyboard.nextLine().toLowerCase();
         keyboard.close();
         if (traitToMuppet.containsKey(userInput)) {
-            System.out.println("You are most similar to " + traitToMuppet.get(userInput));
+            System.out.print("You are most similar to ");
+            String[] name = traitToMuppet.get(userInput).split("_");
+            for (String n : name) {
+                System.out.print(n.charAt(0) + n.toLowerCase().substring(1) + " ");
+            }
         } else {
             System.out.println("You don't ressemble any muppet");
         }
