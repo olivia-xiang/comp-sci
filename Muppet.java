@@ -90,7 +90,7 @@ public enum Muppet {
         }
     }
 
-    public void personaTest() {
+    public void charaCompatibility() {
         Scanner keyboard = new Scanner(System.in);
         String[] chara = characteristic.split("and");
         int score = 100;
