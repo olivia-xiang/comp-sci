@@ -21,7 +21,7 @@ public enum Muppet {
     private double age;
     private int birthdayMonth;
 
-    Muppet (String puppetColor, String characteristic, double age, int birthdayMonth) {
+    Muppet(String puppetColor, String characteristic, double age, int birthdayMonth) {
         this.puppetColor = puppetColor;
         this.characteristic = characteristic;
         this.age = age;
@@ -50,7 +50,7 @@ public enum Muppet {
                         + (birthdayMonth - month + (birthdayMonth - month > 0 ? 0 : 12)) + " months");
     }
 
-    // fix grammer 
+    // fix grammer
     public void colorMatch() {
         boolean checkMatch = false;
         System.out.print("There are ");
@@ -59,7 +59,7 @@ public enum Muppet {
                 System.out.print(m.name() + " ");
                 checkMatch = true;
             }
-        } 
+        }
         System.out.print((checkMatch ? "who match " : "no puppets who match ") + "the color of " + puppetColor);
     }
 
@@ -93,19 +93,24 @@ public enum Muppet {
     public void personaTest() {
         Scanner keyboard = new Scanner(System.in);
         String[] chara = characteristic.split("and");
-        int score = 10;
+        int score = 100;
         System.out.println("This is a personality test to see how well you match with this muppet: ");
         System.out.println("Please answer each question with y or n");
         for (int i = 0; i < chara.length; i++) {
-            while (true) {
-                System.out.println(i + ". Do you consider youself " + chara[i] + "?");
-                char input = keyboard.nextLine().charAt(0).toLowerCase();
+            answerPrompt: while (true) {
+                System.out.println((i + 1) + ". Do you consider youself " + chara[i] + "?");
+                char input = keyboard.nextLine().toLowerCase().charAt(0);
                 if (input == 'n') {
-                    score -=5
+                    score -= 50;
                     break;
                 } else if (input != 'y') {
                     System.out.println("Please enter a valid answer: y or n");
+                    continue answerPrompt;
+                }
+                break;
             }
         }
+        System.out.println("Compatibility: " + score + "%");
+        keyboard.close();
     }
 }
