@@ -93,15 +93,18 @@ public enum Muppet {
     public void personaTest() {
         Scanner keyboard = new Scanner(System.in);
         String[] chara = characteristic.split("and");
+        int score = 10;
         System.out.println("This is a personality test to see how well you match with this muppet: ");
         System.out.println("Please answer each question with y or n");
         for (int i = 0; i < chara.length; i++) {
             while (true) {
                 System.out.println(i + ". Do you consider youself " + chara[i] + "?");
-                char input = keyboard.nextLine().charAt(0);
-                if (input == 'y') {
-                    
-                } else if (ke)
+                char input = keyboard.nextLine().charAt(0).toLowerCase();
+                if (input == 'n') {
+                    score -=5
+                    break;
+                } else if (input != 'y') {
+                    System.out.println("Please enter a valid answer: y or n");
             }
         }
     }
