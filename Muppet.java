@@ -47,7 +47,7 @@ public enum Muppet {
         String [] nameArray = muppet.name().split("_");
         String fixedName = "";
         for (String nameSeg : nameArray) {
-            fixedName += nameSeg.charAt(0) + nameSeg.substring(1).toLowerCase();
+            fixedName += nameSeg.charAt(0) + nameSeg.substring(1).toLowerCase() + " ";
         }
         return fixedName;
     }
