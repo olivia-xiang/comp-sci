@@ -44,7 +44,7 @@ public enum Muppet {
     }
 
     public String fixNameSpelling(Muppet muppet) {
-        String [] nameArray = muppet.name().split("_");
+        String[] nameArray = muppet.name().split("_");
         String fixedName = "";
         for (String nameSeg : nameArray) {
             fixedName += nameSeg.charAt(0) + nameSeg.substring(1).toLowerCase() + " ";
@@ -66,8 +66,9 @@ public enum Muppet {
     public void mostCompatibleMuppet() {
         int winningScore = -1;
         Hashtable<Integer, Muppet> matchingMuppets = new Hashtable<>();
-        String [] traits = characteristic.split("and");
-        boolean warmColor = puppetColor.charAt(puppetColor.length() - 1) != 'l' && puppetColor.charAt(puppetColor.length() - 1) != 'e';
+        String[] traits = characteristic.split("and");
+        boolean warmColor = puppetColor.charAt(puppetColor.length() - 1) != 'l'
+                && puppetColor.charAt(puppetColor.length() - 1) != 'e';
         for (Muppet muppet : Muppet.values()) {
             if (!muppet.characteristic.equals(characteristic)) {
                 char muppetColor2 = muppet.puppetColor.charAt(muppet.puppetColor.length() - 1);
@@ -78,7 +79,7 @@ public enum Muppet {
                         score += 2;
                     }
                 }
-                score += (Math.abs(muppet.age - age) <=5 ? 1 : 0);
+                score += (Math.abs(muppet.age - age) <= 5 ? 1 : 0);
                 score += (warmColor == warmColor2) ? 1 : 0;
                 if (winningScore <= score) {
                     winningScore = score;
@@ -87,12 +88,12 @@ public enum Muppet {
             }
         }
         if (!matchingMuppets.isEmpty()) {
-            System.out.println("Most compatiable: "); 
+            System.out.println("Most compatiable: ");
             for (Integer score : matchingMuppets.keySet()) {
                 if (score == winningScore) {
                     System.out.println("- " + fixNameSpelling(matchingMuppets.get(score)));
                 }
-            } 
+            }
         } else {
             System.out.println("No compatiable muppets found");
         }
