@@ -43,6 +43,15 @@ public enum Muppet {
         return age;
     }
 
+    public String fixNameSpelling(Muppet muppet) {
+        String [] nameArray = muppet.name().split("_");
+        String fixedName = "";
+        for (String nameSeg : nameArray) {
+            fixedName += nameSeg.charAt(0) + nameSeg.substring(1).toLowerCase();
+        }
+        return fixedName;
+    }
+
     public void describeDescription() {
         System.out.println(
                 "This puppet is " + puppetColor + ", " + age + " years old and born in the month " + birthdayMonth);
@@ -81,7 +90,7 @@ public enum Muppet {
             System.out.println("Most compatiable: "); 
             for (Integer score : matchingMuppets.keySet()) {
                 if (score == winningScore) {
-                    System.out.println("- " + matchingMuppets.get(score));
+                    System.out.println("- " + fixNameSpelling(matchingMuppets.get(score)));
                 }
             } 
         } else {
