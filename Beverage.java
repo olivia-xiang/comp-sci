@@ -22,7 +22,7 @@ public class Beverage {
         return calories;
     }
 
-    public void drink(double volumeDrank) {
+    protected void drink(double volumeDrank) {
         if (volumes[0] == 0) {
             System.out.println("Your drink is empty.");
         } else if (volumeDrank <= volumes[0]) {
@@ -39,7 +39,7 @@ public class Beverage {
         }
     }
 
-    public double cashReciever(double money) {
+    protected double cashReciever(double money) {
         if (money >= (volumes[1] - volumes[0]) * price) {
             money -= (volumes[1] - volumes[0]) * price;
             return (refillDrink(true, money));
@@ -48,7 +48,7 @@ public class Beverage {
         }
     }
 
-    public void creditReciever(String cardNumer) {
+    protected void creditReciever(String cardNumer) {
         int sum = 0;
         for (int i = 0; i < cardNumer.length(); i++) {
             if (i % 2 == 0) {
