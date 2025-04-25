@@ -36,12 +36,6 @@ public class Alcohol extends Beverage {
         System.out.println("You aren't of age to " + error + " alcohol");
     }
 
-    // find a way to adjust pricing of the alcohol without changing the pricing of
-    // normal beverages
-    private double adjustPrice(double ageOfAlcohol) {
-        return 0.02 + 0.05 * ageOfAlcohol;
-    }
-
     public void checkId(int idBirthYear) {
         if (YEAR - idBirthYear >= DRINKING_AGE) {
             ofAge = true;
@@ -55,7 +49,6 @@ public class Alcohol extends Beverage {
             super.drink(volume);
         } else {
             alchoholErrorMsg("drink");
-            ;
         }
     }
 
@@ -86,7 +79,7 @@ public class Alcohol extends Beverage {
         System.out.println("Mouth feel: " + mouthFeel);
         System.out.println("Flavour: " + flavour);
 
-        rating += (ageOfAlcohol >= 10 ? 2 : 0);
+        rating += (ageOfAlcohol >= 5 ? 2 : 0);
         return mouthFeel + flavour + rating;
     }
 }

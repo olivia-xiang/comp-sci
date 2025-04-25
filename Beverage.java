@@ -10,19 +10,27 @@ public class Beverage {
         this.calories = calories;
     }
 
-    protected double getVolumeTotal() {
+    public double getVolumeTotal() {
         return volumes[1];
     }
 
-    protected double getVolumeLeft() {
+    public double getVolumeLeft() {
         return volumes[0];
     }
 
-    protected int getCalories() {
+    public int getCalories() {
         return calories;
     }
 
-    protected void drink(double volumeDrank) {
+    public boolean isFull() {
+        if (volumes[1] == volumes[0]) {
+            System.out.println("Your drink is full, no need to refill");
+            return false;
+        }
+        return true;
+    }
+
+    public void drink(double volumeDrank) {
         if (volumes[0] == 0) {
             System.out.println("Your drink is empty.");
         } else if (volumeDrank <= volumes[0]) {
@@ -39,16 +47,18 @@ public class Beverage {
         }
     }
 
-    protected double cashReciever(double money) {
-        if (money >= (volumes[1] - volumes[0]) * price) {
-            money -= (volumes[1] - volumes[0]) * price;
-            return (refillDrink(true, money));
-        } else {
-            return (refillDrink(false, money));
-        }
+    public double cashReciever(double money) {
+        if (isFull()) {
+            if (money >= (volumes[1] - volumes[0]) * price) {
+                money -= (volumes[1] - volumes[0]) * price;
+                return (refillDrink(true, money));
+            } else {
+                return (refillDrink(false, money));
+            }
+        } return money;
     }
 
-    protected void creditReciever(String cardNumer) {
+    public void creditReciever(String cardNumer) {
         int sum = 0;
         for (int i = 0; i < cardNumer.length(); i++) {
             if (i % 2 == 0) {
@@ -61,9 +71,11 @@ public class Beverage {
                     sum += cardNumer.charAt(i) * 2;
                 }
             }
-        } 
-        refillDrink((sum % 10 == 0 ? true : false), 0);
-    }
+        }
+        if (isFull()) {
+            refillDrink((sum % 10 == 0 ? true : false), 0);   
+        }
+    } 
 
     private double refillDrink(boolean enoughPaid, double change) {
         if (enoughPaid) {
@@ -71,8 +83,9 @@ public class Beverage {
             volumes[0] = volumes[1];
             return change;
         } else {
-            System.out.println("It costs " + (volumes[1] - volumes[0]) * price + " to refill your drink. You need to enter $"
-                    + ((volumes[1] - volumes[0]) * price - change) + " more.");
+            System.out.println(
+                    "It costs " + (volumes[1] - volumes[0]) * price + " to refill your drink. You need to enter $"
+                            + ((volumes[1] - volumes[0]) * price - change) + " more.");
             return change;
         }
     }
