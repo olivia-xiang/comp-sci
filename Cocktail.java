@@ -31,6 +31,22 @@ public class Cocktail extends Alcohol {
         this.fruitDecoration = fruitDecoration;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public boolean getRimCoating() {
+        return rimCoating;
+    }
+
+    public String getFruitDecoration() {
+        return fruitDecoration;
+    }
+
+    public int getNumFruitDecoration() {
+        return numFruitDecorations;
+    }
+
     public String lickTheRim() {
         if (rimCoating) {
             int typeOfRim = (int) (Math.random() * 3);
@@ -67,9 +83,12 @@ public class Cocktail extends Alcohol {
     }
 
     public Cocktail mixCocktails(Cocktail c) {
-        return new Cocktail(volumes[0] + c.volumes[0], calories + c.calories,
-                (alcoholByVolume + c.alcoholByVolume) / (volumes[0] + volumes[1]), (ageOfAlcohol + c.ageOfAlcohol) / 2,
-                false, color + "ish " + c.color, fruitDecoration + "s and " + c.fruitDecoration + "s",
-                numFruitDecorations + c.numFruitDecorations);
+        double totalVolumes = c.volumes[0] + volumes[0];
+        double percentVolume1 = volumes[0] / totalVolumes;
+        double percentVolume2 = c.volumes[0] / totalVolumes;
+        return new Cocktail(totalVolumes, calories + c.calories,
+                (alcoholByVolume * percentVolume1 + c.alcoholByVolume * percentVolume2) / 2,
+                (ageOfAlcohol * percentVolume1 + c.ageOfAlcohol * percentVolume2) / 2, false, color + "ish " + c.color,
+                fruitDecoration + " and " + c.fruitDecoration, numFruitDecorations + c.numFruitDecorations);
     }
 }

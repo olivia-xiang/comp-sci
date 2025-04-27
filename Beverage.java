@@ -10,24 +10,16 @@ public class Beverage {
         this.calories = calories;
     }
 
-    public double getVolumeTotal() {
+    protected double getVolumeTotal() {
         return volumes[1];
     }
 
-    public double getVolumeLeft() {
+    protected double getVolumeLeft() {
         return volumes[0];
     }
 
-    public int getCalories() {
+    protected int getCalories() {
         return calories;
-    }
-
-    public boolean isFull() {
-        if (volumes[1] == volumes[0]) {
-            System.out.println("Your drink is full, no need to refill");
-            return false;
-        }
-        return true;
     }
 
     public void drink(double volumeDrank) {
@@ -48,14 +40,12 @@ public class Beverage {
     }
 
     public double cashReciever(double money) {
-        if (isFull()) {
-            if (money >= (volumes[1] - volumes[0]) * price) {
-                money -= (volumes[1] - volumes[0]) * price;
-                return (refillDrink(true, money));
-            } else {
-                return (refillDrink(false, money));
-            }
-        } return money;
+        if (money >= (volumes[1] - volumes[0]) * price) {
+            money -= (volumes[1] - volumes[0]) * price;
+            return (refillDrink(true, money));
+        } else {
+            return (refillDrink(false, money));
+        }
     }
 
     public void creditReciever(String cardNumer) {
@@ -71,11 +61,9 @@ public class Beverage {
                     sum += cardNumer.charAt(i) * 2;
                 }
             }
-        }
-        if (isFull()) {
-            refillDrink((sum % 10 == 0 ? true : false), 0);   
-        }
-    } 
+        } 
+        refillDrink((sum % 10 == 0 ? true : false), 0);
+    }
 
     private double refillDrink(boolean enoughPaid, double change) {
         if (enoughPaid) {
@@ -83,9 +71,8 @@ public class Beverage {
             volumes[0] = volumes[1];
             return change;
         } else {
-            System.out.println(
-                    "It costs " + (volumes[1] - volumes[0]) * price + " to refill your drink. You need to enter $"
-                            + ((volumes[1] - volumes[0]) * price - change) + " more.");
+            System.out.println("It costs " + (volumes[1] - volumes[0]) * price + " to refill your drink. You need to enter $"
+                    + ((volumes[1] - volumes[0]) * price - change) + " more.");
             return change;
         }
     }
