@@ -1,16 +1,22 @@
+package beverage;
 /**
- * Beverages class creates a beverage object that takes a volume and calories from the user
+ * Represents a beverage with a volume and amount of calories
  * 
  * @author Olivia Xiang
  * @version 1.0 - April 2025
  */
-
 public class Beverage {
 
-    /*The instance variables */
     protected double[] volumes = new double[2];
     protected int calories;
     private double price = 0.02;
+
+    /**
+     * Construsts a Beverage given a volume and calories
+     * 
+     * @param volume   the inital volume of the beverage
+     * @param calories the amount of calories in the total drink
+     */
 
     public Beverage(double volume, int calories) {
         this.volumes[0] = volume;
@@ -18,26 +24,44 @@ public class Beverage {
         this.calories = calories;
     }
 
+    /**
+     * @return total volume that beverage can hold
+     */
+
     protected double getVolumeTotal() {
         return volumes[1];
-        /*
-         * @return double of total volume that beverage can hold
-         */
     }
+
+    /**
+     * @return total volume left in beverage
+     */
 
     protected double getVolumeLeft() {
         return volumes[0];
-        /*
-         * @return double of total volume left in beverage
-         */
+
     }
+
+    /**
+     * @return the amount of calories in the beverage
+     */
 
     protected int getCalories() {
         return calories;
-        /*
-         * @return int of the amount of calories in the beverage
-         */
+
     }
+
+    /**
+     * Checks if the drink is empty, if the drink has at least
+     * equal or more than
+     * the amount looking to be drank then adjusts the volume left
+     * in the beverage
+     * accordingly
+     * 
+     * @param volumeDrank the amount of the beverage the user wants to drink
+     * 
+     * 
+     * 
+     */
 
     public void drink(double volumeDrank) {
         if (volumes[0] == 0) {
@@ -54,21 +78,34 @@ public class Beverage {
             System.out.println("You can't drink more than the cup can hold. Your drink is now empty. You consumed "
                     + calories + " calories.");
         }
-        /*
-         * @param volumeDrank A double that represents the amount of the beverage the user wants to drink
-         * 
-         * Checks if the drink is empty, if the drink has at least equal or more than the amount looking to be drank then adjusts the volumeLeft in the beverage accordingly
-         * 
-         */
+
     }
+
+    /**
+     * @param refillAmt the amount of the beverage looking to be refilled
+     * 
+     * @return the adjusted refillAmt if it is greater than what the beverage can
+     *         hold
+     */
 
     private double checkRefillAmt(double refillAmt) {
         return (refillAmt > (volumes[1] - volumes[0]) ? volumes[1] - volumes[0] : refillAmt);
-        /*
-         * @param refillAmt - the amount of the beverage looking to be refilled
-         * @return double of the adjusted refillAmt if it is greater than what the beverage can hold
-         */
+
     }
+
+    /**
+     * Adjusts the money entered into the cash deposit and calls the
+     * refillDrink
+     * function accordingly
+     * 
+     * @param money     the amount of money put in to refill the beverage
+     * 
+     * @param refillAmt the amount of the beverage looking to be refilled
+     * 
+     * @return the change from the purchase
+     * 
+     * 
+     */
 
     public double cashReciever(double money, double refillAmt) {
         refillAmt = checkRefillAmt(refillAmt);
@@ -78,14 +115,20 @@ public class Beverage {
         } else {
             return (refillDrink(money, 0));
         }
-        /*
-         * @param money - the amount of money put in to refill the beverage
-         * @param refillAmt - the amount of the beverage looking to be refilled
-         * @return double of the change from the purchase
-         * 
-         * Ajusts the money entered into the cash deposit and calls the refillDrink function accordingly
-         */
+
     }
+
+    /**
+     * 
+     * Utilizes Luhn's algorithmn to check validity of the card
+     * then calls the refillDrink function accordingly
+     * 
+     * @param carbNumber the credit card number being used to pay
+     * 
+     * @param refillAmt  the amount of the beverage looking to be refilled
+     * 
+     * 
+     */
 
     public void creditReciever(String cardNumer, double refillAmt) {
         int sum = 0;
@@ -107,13 +150,15 @@ public class Beverage {
         } else {
             refillDrink(0, 0);
         }
-        /*
-         * @param carbNumber - the credit card number being used to pay
-         * @param refillAmt - the amount of the beverage looking to be refilled
-         * 
-         * Utilizes Luhn's algorithmn to check validity of the card then calls the refillDrink function accordingly
-         */
+
     }
+
+    /**
+     * @param change    the amount of change leftover from the user's money input
+     * @param refillAmt the amount of the beverage looking to be refilled
+     * 
+     * @return the change
+     */
 
     private double refillDrink(double change, double refillAmt) {
         if (refillAmt > 0) {
@@ -127,9 +172,6 @@ public class Beverage {
                             + ((volumes[1] - volumes[0]) * price - change) + " more.");
         }
         return change;
-        /*
-         * @param change - the amount of change leftover from the user's money input
-         * @
-         */
     }
+
 }

@@ -1,3 +1,11 @@
+package beverage;
+
+/**
+ * Represents the alcoholic beverage class that extends the beverage class
+ * 
+ * @author Olivia Xiang
+ * @version 1.0 - April 2025
+ */
 public class Alcohol extends Beverage {
 
     protected double alcoholByVolume;
@@ -7,6 +15,14 @@ public class Alcohol extends Beverage {
     private final int DRINKING_AGE = 25;
     private String alcoholMixIn = "none";
 
+    /**
+     * 
+     * @param volume          the inital volume of the drink
+     * @param calories        the amount of calories in the inital volume
+     * @param alcoholByVolume the concentration of alcohol in the drink
+     * @param ageOfAlcohol    how long the alcohol has been aged for
+     * @param alcoholMixIn    the liquids that have been mixed into the alcohol
+     */
     public Alcohol(double volume, int calories, double alcoholByVolume, double ageOfAlcohol, String alcoholMixIn) {
         super(volume, calories);
         this.alcoholByVolume = alcoholByVolume;
@@ -14,9 +30,22 @@ public class Alcohol extends Beverage {
         this.alcoholMixIn = alcoholMixIn;
     }
 
+    /**
+     * 
+     * @param volume   the inital volume of the drink
+     * @param calories the amount of calories in the inital volume
+     */
     public Alcohol(double volume, int calories) {
         this(volume, calories, 0.5, 0, "none");
     }
+
+    /**
+     * 
+     * @param volume          the amount in volume the new drink can hold
+     * @param calories        the amount of calories present in the new drink
+     * @param alcoholByVolume the concentration of alcohol in the new drink
+     * @param ageOfAlcohol    how long the new alcohol has been aged for
+     */
 
     public void reset(double volume, int calories, double alcoholByVolume, double ageOfAlcohol) {
         this.volumes[0] = volume;
@@ -26,21 +55,45 @@ public class Alcohol extends Beverage {
         this.ageOfAlcohol = ageOfAlcohol;
     }
 
+    /**
+     * @return the amount of alcohol in the drink
+     */
+
     public double getAlcoholByVolume() {
         return alcoholByVolume;
     }
+
+    /**
+     * @return the age of the alcohol in the drink
+     */
 
     public double ageOfAlcohol() {
         return ageOfAlcohol;
     }
 
+    /**
+     * @return the mix in of the alcohol
+     */
+
     public String checkMixIn() {
         return alcoholMixIn;
-    } 
-   
+    }
+
+    /**
+     * Prints an error message if the user is not of age to drink alcohol
+     * 
+     * @param error the error that the user has made
+     */
+
     private void alchoholErrorMsg(String error) {
         System.out.println("You aren't of age to " + error + " alcohol");
-    } 
+    }
+
+    /**
+     * Check if the user is of age to drink alcohol
+     * 
+     * @param idBirthYear the year the user was born
+     */
 
     public void checkId(int idBirthYear) {
         if (YEAR - idBirthYear >= DRINKING_AGE) {
@@ -50,6 +103,12 @@ public class Alcohol extends Beverage {
         }
     }
 
+    /**
+     * If the user is of age, the user is allowed to drink alcohol
+     * 
+     * @param volume the amount of alcohol the user wants to drink
+     */
+
     public void drink(double volume) {
         if (ofAge) {
             super.drink(volume);
@@ -57,6 +116,14 @@ public class Alcohol extends Beverage {
             alchoholErrorMsg("drink");
         }
     }
+
+    /**
+     * If the user is of age, the user is allowed to buy alcohol
+     * 
+     * @param money     the amount of money the user has
+     * @param refillAmt the amount of alcohol the user wants to buy
+     * @return
+     */
 
     public int cashReciever(int money, double refillAmt) {
         if (ofAge) {
@@ -68,6 +135,13 @@ public class Alcohol extends Beverage {
         }
     }
 
+    /**
+     * If the user is of age, the user is allowed to buy alcohol
+     * 
+     * @param cardNum   the card number of the user
+     * @param refillAmt the amount of alcohol the user wants to buy
+     */
+
     public void cashReciever(String cardNum, double refillAmt) {
         if (ofAge) {
             super.creditReciever(cardNum, refillAmt);
@@ -75,6 +149,12 @@ public class Alcohol extends Beverage {
             alchoholErrorMsg("buy");
         }
     }
+
+    /**
+     * Appraises the alcohol based on its age, mouth feel, and flavour
+     * 
+     * @return the rating of the alcohol
+     */
 
     public int alcoholApprasier() {
         int rating = 0;
