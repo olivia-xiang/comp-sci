@@ -5,15 +5,17 @@ public class Alcohol extends Beverage {
     private final int YEAR = 2025;
     private boolean ofAge = false;
     private final int DRINKING_AGE = 25;
+    private String alcoholMixIn = "none";
 
-    public Alcohol(double volume, int calories, double alcoholByVolume, double ageOfAlcohol) {
+    public Alcohol(double volume, int calories, double alcoholByVolume, double ageOfAlcohol, String alcoholMixIn) {
         super(volume, calories);
         this.alcoholByVolume = alcoholByVolume;
         this.ageOfAlcohol = ageOfAlcohol;
+        this.alcoholMixIn = alcoholMixIn;
     }
 
     public Alcohol(double volume, int calories) {
-        this(volume, calories, 0.5, 0);
+        this(volume, calories, 0.5, 0, "none");
     }
 
     public void reset(double volume, int calories, double alcoholByVolume, double ageOfAlcohol) {
@@ -32,9 +34,13 @@ public class Alcohol extends Beverage {
         return ageOfAlcohol;
     }
 
+    public String checkMixIn() {
+        return alcoholMixIn;
+    } 
+   
     private void alchoholErrorMsg(String error) {
         System.out.println("You aren't of age to " + error + " alcohol");
-    }
+    } 
 
     public void checkId(int idBirthYear) {
         if (YEAR - idBirthYear >= DRINKING_AGE) {
@@ -52,9 +58,9 @@ public class Alcohol extends Beverage {
         }
     }
 
-    public int cashReciever(int money) {
+    public int cashReciever(int money, double refillAmt) {
         if (ofAge) {
-            super.cashReciever(money);
+            super.cashReciever(money, refillAmt);
             return 0;
         } else {
             alchoholErrorMsg("buy");
@@ -62,9 +68,9 @@ public class Alcohol extends Beverage {
         }
     }
 
-    public void cashReciever(String cardNum) {
+    public void cashReciever(String cardNum, double refillAmt) {
         if (ofAge) {
-            super.creditReciever(cardNum);
+            super.creditReciever(cardNum, refillAmt);
         } else {
             alchoholErrorMsg("buy");
         }

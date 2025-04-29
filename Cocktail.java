@@ -6,21 +6,22 @@ public class Cocktail extends Alcohol {
     private int numFruitDecorations;
     private final double FRUIT_PRICE = 0.5;
 
-    public Cocktail(double volume, int calories, double alcoholByVolume, double ageOfAlcohol, boolean rimCoating,
+    public Cocktail(double volume, int calories, double alcoholByVolume, double ageOfAlcohol, String alcoholMixIn,
+            boolean rimCoating,
             String color, String fruitDecoration, int numFruitDecorations) {
-        super(volume, calories, alcoholByVolume, ageOfAlcohol);
+        super(volume, calories, alcoholByVolume, ageOfAlcohol, alcoholMixIn);
         this.rimCoating = rimCoating;
         this.color = color;
         this.fruitDecoration = fruitDecoration;
         this.numFruitDecorations = numFruitDecorations;
     }
 
-    public Cocktail(double volume, int calories, double alcoholByVolume, double ageOfAlcohol) {
-        this(volume, calories, alcoholByVolume, ageOfAlcohol, false, "pink", "strawberry", 3);
+    public Cocktail(double volume, int calories, double alcoholByVolume, double ageOfAlcohol, String alcoholMixIn) {
+        this(volume, calories, alcoholByVolume, ageOfAlcohol, "none", false, "pink", "strawberry", 3);
     }
 
     public Cocktail(double volume, int calories) {
-        this(volume, calories, 0.5, 0);
+        this(volume, calories, 0.5, 0, "none");
     }
 
     public void reset(double volume, int calories, double alcoholByVolume, double ageOfAlcohol, boolean rimCoating,
@@ -88,7 +89,8 @@ public class Cocktail extends Alcohol {
         double percentVolume2 = c.volumes[0] / totalVolumes;
         return new Cocktail(totalVolumes, calories + c.calories,
                 (alcoholByVolume * percentVolume1 + c.alcoholByVolume * percentVolume2) / 2,
-                (ageOfAlcohol * percentVolume1 + c.ageOfAlcohol * percentVolume2) / 2, false, color + "ish " + c.color,
+                (ageOfAlcohol * percentVolume1 + c.ageOfAlcohol * percentVolume2) / 2,
+                "none", false, color + "ish " + c.color,
                 fruitDecoration + " and " + c.fruitDecoration, numFruitDecorations + c.numFruitDecorations);
     }
 }
