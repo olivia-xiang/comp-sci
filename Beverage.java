@@ -7,12 +7,18 @@ package beverage;
  */
 public class Beverage {
 
+    /**
+     * Contains the remaining volume in the beverage and the total volume capacity of the beverage
+     */
     protected double[] volumes = new double[2];
+    /**
+     * Contains the total amount of calories in the beverage given the volume remaining 
+     */
     protected int calories;
     private double price = 0.02;
 
     /**
-     * Construsts a Beverage given a volume and calories
+     * Creates a new beverage object
      * 
      * @param volume   the inital volume of the beverage
      * @param calories the amount of calories in the total drink
@@ -25,6 +31,8 @@ public class Beverage {
     }
 
     /**
+     * Returns the total volume that the beverage can hold
+     * 
      * @return total volume that beverage can hold
      */
 
@@ -33,6 +41,8 @@ public class Beverage {
     }
 
     /**
+     * Returns the total volume remaining in the beverage
+     * 
      * @return total volume left in beverage
      */
 
@@ -42,6 +52,8 @@ public class Beverage {
     }
 
     /**
+     * Returns the amount of calories present in the beverage given the volume remaining
+     * 
      * @return the amount of calories in the beverage
      */
 
@@ -123,26 +135,26 @@ public class Beverage {
      * Utilizes Luhn's algorithmn to check validity of the card
      * then calls the refillDrink function accordingly
      * 
-     * @param carbNumber the credit card number being used to pay
+     * @param cardNumber the credit card number being used to pay
      * 
      * @param refillAmt  the amount of the beverage looking to be refilled
      * 
      * 
      */
 
-    public void creditReciever(String cardNumer, double refillAmt) {
+    public void creditReciever(String cardNumber, double refillAmt) {
         int sum = 0;
         refillAmt = checkRefillAmt(refillAmt);
         if (refillAmt > 0) {
-            for (int i = 0; i < cardNumer.length(); i++) {
+            for (int i = 0; i < cardNumber.length(); i++) {
                 if (i % 2 == 0) {
-                    if (cardNumer.charAt(i) * 2 > 9) {
-                        String[] nums = String.valueOf(cardNumer.charAt(i) * 2).split("");
+                    if (cardNumber.charAt(i) * 2 > 9) {
+                        String[] nums = String.valueOf(cardNumber.charAt(i) * 2).split("");
                         for (String num : nums) {
                             sum += Integer.parseInt(num);
                         }
                     } else {
-                        sum += cardNumer.charAt(i) * 2;
+                        sum += cardNumber.charAt(i) * 2;
                     }
                 }
             }

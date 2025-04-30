@@ -8,10 +8,21 @@ package beverage;
  */
 
 public class Cocktail extends Alcohol {
-
+    /**
+     * Contains whether there is a rim coating on the beverage
+     */
     private boolean rimCoating;
+    /**
+     * Contains the color of the beverage
+     */
     private String color;
+    /**
+     * Contains the type of fruit decoration on the beverage
+     */
     private String fruitDecoration;
+    /**
+     * Contains the number of fruit decoration on the beverage
+     */
     private int numFruitDecorations;
     private final double FRUIT_PRICE = 0.5;
 
@@ -103,6 +114,8 @@ public class Cocktail extends Alcohol {
     }
 
     /**
+     * Returns the color of the beverage
+     * 
      * @return the color of the beverage
      */
 
@@ -111,6 +124,8 @@ public class Cocktail extends Alcohol {
     }
 
     /**
+     * Returns whether there is a rim coating on the beverage
+     * 
      * @return whether there is a rim coating on the beverage
      */
 
@@ -119,6 +134,8 @@ public class Cocktail extends Alcohol {
     }
 
     /**
+     * Returns the type of fruit decoration on the beverage
+     * 
      * @return the type of fruit decoration on the beverage
      */
 
@@ -127,6 +144,8 @@ public class Cocktail extends Alcohol {
     }
 
     /**
+     * Returns the number of fruit decorations on the beverage
+     * 
      * @return the number of fruit decorations on the beverage
      */
 

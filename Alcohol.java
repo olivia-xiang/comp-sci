@@ -7,8 +7,13 @@ package beverage;
  * @version 1.0 - April 2025
  */
 public class Alcohol extends Beverage {
-
+    /**
+     * Contains the concentration of alcohol in the drink
+     */
     protected double alcoholByVolume;
+    /**
+     * Contains how long the alcohol has been aged for
+     */
     protected double ageOfAlcohol;
     private final int YEAR = 2025;
     private boolean ofAge = false;
@@ -16,6 +21,7 @@ public class Alcohol extends Beverage {
     private String alcoholMixIn = "none";
 
     /**
+     * Creates a new alcohol object
      * 
      * @param volume          the inital volume of the drink
      * @param calories        the amount of calories in the inital volume
@@ -31,6 +37,7 @@ public class Alcohol extends Beverage {
     }
 
     /**
+     * Creates a new alcohol object
      * 
      * @param volume   the inital volume of the drink
      * @param calories the amount of calories in the inital volume
@@ -40,6 +47,7 @@ public class Alcohol extends Beverage {
     }
 
     /**
+     * Resets the properties of the alcohol object
      * 
      * @param volume          the amount in volume the new drink can hold
      * @param calories        the amount of calories present in the new drink
@@ -56,6 +64,8 @@ public class Alcohol extends Beverage {
     }
 
     /**
+     * Returns amount of alcohol in the drink
+     * 
      * @return the amount of alcohol in the drink
      */
 
@@ -64,6 +74,8 @@ public class Alcohol extends Beverage {
     }
 
     /**
+     * Returns the age of the alcohol in the drink
+     * 
      * @return the age of the alcohol in the drink
      */
 
@@ -72,7 +84,9 @@ public class Alcohol extends Beverage {
     }
 
     /**
-     * @return the mix in of the alcohol
+     * Returns the mix in present in the alcohol if there are any
+     * 
+     * @return the mix in of the alcohol, there are none, it returns a String containing none
      */
 
     public String checkMixIn() {
@@ -122,7 +136,7 @@ public class Alcohol extends Beverage {
      * 
      * @param money     the amount of money the user has
      * @param refillAmt the amount of alcohol the user wants to buy
-     * @return
+     * @return the change if the user is not of age to buy alcohol or 0 if they are eligible to buy alcohol
      */
 
     public int cashReciever(int money, double refillAmt) {
