@@ -1,4 +1,5 @@
 package beverage;
+
 /**
  * Represents a beverage with a volume and amount of calories
  * 
@@ -8,11 +9,13 @@ package beverage;
 public class Beverage {
 
     /**
-     * Contains the remaining volume in the beverage and the total volume capacity of the beverage
+     * Contains the remaining volume in the beverage and the total volume capacity
+     * of the beverage
      */
     protected double[] volumes = new double[2];
     /**
-     * Contains the total amount of calories in the beverage given the volume remaining 
+     * Contains the total amount of calories in the beverage given the volume
+     * remaining
      */
     protected int calories;
     private double price = 0.02;
@@ -52,7 +55,8 @@ public class Beverage {
     }
 
     /**
-     * Returns the amount of calories present in the beverage given the volume remaining
+     * Returns the amount of calories present in the beverage given the volume
+     * remaining
      * 
      * @return the amount of calories in the beverage
      */

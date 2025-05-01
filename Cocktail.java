@@ -1,4 +1,5 @@
 package beverage;
+
 /**
  * Represents a cocktail drink with various properties and methods to manipulate
  * them that extends the alcohol class

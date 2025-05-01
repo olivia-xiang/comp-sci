@@ -86,7 +86,8 @@ public class Alcohol extends Beverage {
     /**
      * Returns the mix in present in the alcohol if there are any
      * 
-     * @return the mix in of the alcohol, there are none, it returns a String containing none
+     * @return the mix in of the alcohol, there are none, it returns a String
+     *         containing none
      */
 
     public String checkMixIn() {
@@ -136,7 +137,8 @@ public class Alcohol extends Beverage {
      * 
      * @param money     the amount of money the user has
      * @param refillAmt the amount of alcohol the user wants to buy
-     * @return the change if the user is not of age to buy alcohol or 0 if they are eligible to buy alcohol
+     * @return the change if the user is not of age to buy alcohol or 0 if they are
+     *         eligible to buy alcohol
      */
 
     public int cashReciever(int money, double refillAmt) {
