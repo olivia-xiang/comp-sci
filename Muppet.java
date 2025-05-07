@@ -1,5 +1,3 @@
-import java.util.Hashtable;
-
 public enum Muppet {
 
     ELMO("red", "cheerful and friendly", 3.5, 2),
@@ -43,8 +41,8 @@ public enum Muppet {
         return age;
     }
 
-    public String fixNameSpelling(Muppet muppet) {
-        String[] nameArray = muppet.name().split("_");
+    public String fixNameSpelling(String name) {
+        String[] nameArray = name.split("_");
         String fixedName = "";
         for (String nameSeg : nameArray) {
             fixedName += nameSeg.charAt(0) + nameSeg.substring(1).toLowerCase() + " ";
@@ -64,8 +62,8 @@ public enum Muppet {
     }
 
     public void mostCompatibleMuppet() {
-        int winningScore = -1;
-        Hashtable<Integer, Muppet> matchingMuppets = new Hashtable<>();
+        int winningScore = 1;
+        String matches = "";
         String[] traits = characteristic.split("and");
         boolean warmColor = puppetColor.charAt(puppetColor.length() - 1) != 'l'
                 && puppetColor.charAt(puppetColor.length() - 1) != 'e';
@@ -83,19 +81,17 @@ public enum Muppet {
                 score += (warmColor == warmColor2) ? 1 : 0;
                 if (winningScore <= score) {
                     winningScore = score;
-                    matchingMuppets.put(score, muppet);
+                    matches += score + muppet.name() + " ";
                 }
             }
         }
-        if (!matchingMuppets.isEmpty()) {
-            System.out.println("Most compatiable: ");
-            for (Integer score : matchingMuppets.keySet()) {
-                if (score == winningScore) {
-                    System.out.println("- " + fixNameSpelling(matchingMuppets.get(score)));
+        String[] matchesArray = matches.split(" ");
+        for (String match : matchesArray) {
+            if (match.length() > 2) {
+                if (match.charAt(0) - '0' == winningScore) {
+                    System.out.println("- " + fixNameSpelling(match.substring(1)));
                 }
             }
-        } else {
-            System.out.println("No compatiable muppets found");
         }
     }
 }
