@@ -58,10 +58,18 @@
                   <MenuItem id="rotateFlip" mnemonicParsing="false" onAction="#onRotateFlip" text="Rotate Flip" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Filter">
+            <Menu mnemonicParsing="false" text="Color">
               <items>
                 <MenuItem id="grayScale" mnemonicParsing="false" onAction="#onGrayScale" text="Gray Scale" />
-                  <MenuItem id="sepia" mnemonicParsing="false" onAction="#onSepia" text="Sepia" />
+                  <MenuItem id="sepia" mnemonicParsing="false" onAction="#onSepia" text="Sepia Tone" />
+                  <MenuItem mnemonicParsing="false" onAction="#onInvertColor" text="Invert Color" />
+                  <MenuItem mnemonicParsing="false" onAction="#onBrightness" text="Brightness" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Filter">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#onBulge" text="Bulge" />
+                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
               </items>
             </Menu>
       </menus>
