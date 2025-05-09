@@ -123,22 +123,14 @@ public class PrimaryController {
 
         double cx = width / 2;
         double cy = height / 2;
-       
+
         for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) { 
-                
-                double dx = Math.abs(i - cx);
-                double dy = Math.abs(j - cy);
-                writer.setColor((int)dx, (int)dy, reader.getColor(i, j));
-                int[] corrds = new int[2];
-                corrds[0] = (int)(dx * Math.cos(Math.toRadians(90)) - dy * Math.sin(Math.toRadians(90)) + cx);
-                corrds[1] = (int)(dx * Math.sin(Math.toRadians(90)) + dy * Math.cos(Math.toRadians(90)) + cy);
-                dx = (corrds[0] < width && corrds[0] >= 0) ? corrds[0] : -1;
-                dy = (corrds[1] < height && corrds[1] >= 0) ? corrds[1] : -1;
-                if (dx >= 0 && dy >= 0) {
-                    writer.setColor((int)dx, (int)dy, reader.getColor(i, j));
-                }
-                    
+            for (int j = 0; j < height; j++) {
+
+                double dx = i - cx;
+                double dy = j - cy;
+
+
             }
         }
         imageView.setImage(writableImage);
@@ -187,6 +179,7 @@ public class PrimaryController {
         }
         imageView.setImage(writableImage);
     }
+
     @FXML
     void onInvertColor(ActionEvent event) {
         int width = (int) imageView.getImage().getWidth();
@@ -199,7 +192,7 @@ public class PrimaryController {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 Color color = reader.getColor(i, j);
-                Color invert = new Color (1 - color.getRed(), 1 - color.getGreen(), 1 - color.getBlue(), 1);
+                Color invert = new Color(1 - color.getRed(), 1 - color.getGreen(), 1 - color.getBlue(), 1);
                 writer.setColor(i, j, invert);
             }
         }
@@ -218,11 +211,11 @@ public class PrimaryController {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 Color color = reader.getColor(i, j);
-                double[] rgb = {color.getRed() + 0.2, color.getGreen() + 0.2, color.getBlue() + 0.2};
+                double[] rgb = { color.getRed() + 0.2, color.getGreen() + 0.2, color.getBlue() + 0.2 };
                 for (int k = 0; k < 3; k++) {
                     rgb[k] = rgb[k] > 1 ? 1 : rgb[k];
                 }
-                Color invert = new Color (rgb[0], rgb[1], rgb[2], 1);
+                Color invert = new Color(rgb[0], rgb[1], rgb[2], 1);
                 writer.setColor(i, j, invert);
             }
         }
@@ -238,25 +231,23 @@ public class PrimaryController {
         PixelReader reader = imageView.getImage().getPixelReader();
         PixelWriter writer = writableImage.getPixelWriter();
 
-        double cx = width / 2;
-        double cy = height / 2;
+        int cx = width / 2;
+        int cy = height / 2;
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                
+
                 double dx = i - cx;
                 double dy = j - cy;
                 double r = Math.sqrt(dx * dx + dy * dy);
-                double angle = Math.atan2(dy, dx);
-                r = Math.pow(r, 1.6) / 30;
-                
-                double x = cx + r * Math.cos(Math.toRadians(angle));
-                double y = cy + r * Math.sin(Math.toRadians(angle));
+                double rPrime = Math.pow(r, 1.6) / 30;
+
+                double x = cx + rPrime * Math.cos((Math.atan2(dy, dx)));
+                double y = cy + rPrime * Math.sin((Math.atan2(dy, dx)));
 
                 if (x >= 0 && x <= width && y >= 0 && y <= height) {
-                     writer.setColor((int)x, (int)y, reader.getColor(i, j));
+                    writer.setColor(i, j, reader.getColor((int)x, (int)y));
                 }
-               
             }
         }
         imageView.setImage(writableImage);
