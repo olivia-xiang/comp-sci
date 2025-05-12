@@ -120,9 +120,21 @@ public class PrimaryController {
         PixelReader reader = imageView.getImage().getPixelReader();
         PixelWriter writer = writableImage.getPixelWriter();
 
+        double cx = width / 2;
+        double cy = height / 2;
+        double angle = Math.toRadians(90);
+        
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                writer.setColor(height - i - 1, width - j - 1, reader.getColor(i, j));
+                double dx = i - cx;
+                double dy = j - cy;
+
+                double xPrime = dx * Math.cos(angle) - dy * Math.sin(angle) + cx;
+                double yPrime = dx * Math.sin(angle) - dy * Math.cos(angle) + cy;
+
+                if (xPrime >= 0 && xPrime <=width && yPrime >= 0 && yPrime <= height) {
+                     writer.setColor(i, j, reader.getColor(xPrime, yPrime));
+                }
             }
         }
         imageView.setImage(writableImage);
