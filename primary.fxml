@@ -49,13 +49,34 @@
                   <MenuItem fx:id="openImage" mnemonicParsing="false" onAction="#onOpenImage" text="Open" />
                   <MenuItem fx:id="saveImage" mnemonicParsing="false" onAction="#onSaveImage" text="Save As" />
                   <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#onRestoreImage" text="Restore to Original" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#onExit" text="Exit" />
                </items>
         </Menu>
             <Menu mnemonicParsing="false" text="Transformation">
               <items>
                 <MenuItem fx:id="horizontalFlip" mnemonicParsing="false" onAction="#onHorizontalFlip" text="Horizontal Flip" />
                   <MenuItem id="verticalFlip" mnemonicParsing="false" onAction="#onVerticalFlip" text="Vertical Flip" />
-                  <MenuItem id="rotateFlip" mnemonicParsing="false" text="Rotate Flip" />
+                  <MenuItem id="rotateFlip" mnemonicParsing="false" onAction="#onRotateFlip" text="Rotate Flip" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Color">
+              <items>
+                <MenuItem id="grayScale" mnemonicParsing="false" onAction="#onGrayScale" text="Gray Scale" />
+                  <MenuItem id="sepia" mnemonicParsing="false" onAction="#onSepia" text="Sepia Tone" />
+                  <MenuItem mnemonicParsing="false" onAction="#onInvertColor" text="Invert Color" />
+                  <MenuItem mnemonicParsing="false" onAction="#onBrightness" text="Brightness" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Effect">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#onBulge" text="Bulge" />
+                  <MenuItem mnemonicParsing="false" onAction="#onColorOverlay" text="Color Overlay" />
+                  <MenuItem mnemonicParsing="false" onAction="#onPixelation" text="Pixelation" />
+                  <MenuItem mnemonicParsing="false" onAction="#onVignette" text="Vignette" />
+                  <MenuItem mnemonicParsing="false" onAction="#onEdgeDetection" text="Edge Detection" />
+                  <MenuItem mnemonicParsing="false" onAction="#onEmboss" text="Emboss" />
               </items>
             </Menu>
       </menus>
