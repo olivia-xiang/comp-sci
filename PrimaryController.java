@@ -128,14 +128,15 @@ public class PrimaryController {
         int width = (int) imageView.getImage().getWidth();
         int height = (int) imageView.getImage().getHeight();
 
-        WritableImage writableImage = new WritableImage(width, height);
+        //WritableImage writableImage = new WritableImage(width, height);
+        WritableImage writableImage = new WritableImage(height, width);
         PixelReader reader = imageView.getImage().getPixelReader();
         PixelWriter writer = writableImage.getPixelWriter();
 
         double cx = width / 2;
         double cy = height / 2;
-        double angle = Math.toRadians(90);
-        
+        double angle = Math.toRadians(-90);
+
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 double dx = i - cx;
@@ -144,12 +145,17 @@ public class PrimaryController {
                 double xPrime = dx * Math.cos(angle) - dy * Math.sin(angle) + cx;
                 double yPrime = dx * Math.sin(angle) - dy * Math.cos(angle) + cy;
 
-                if (xPrime >= 0 && xPrime < width && yPrime >= 0 && yPrime < height) {
-                     writer.setColor((int)xPrime, (int)yPrime, reader.getColor(i, j));
+                // if (xPrime >= 0 && xPrime < width && yPrime >= 0 && yPrime < height) {
+                //     writer.setColor((int) xPrime, (int) yPrime, reader.getColor(i, j));
+                // }
+                try {
+                    writer.setColor((int)xPrime, (int)yPrime, reader.getColor(i, j));
+                } catch (IndexOutOfBoundsException e) {
+
                 }
             }
         }
-        imageView.setImage(writableImage);
+    imageView.setImage(writableImage);
     }
 
     @FXML
@@ -262,7 +268,7 @@ public class PrimaryController {
                 double y = cy + rPrime * Math.sin((Math.atan2(dy, dx)));
 
                 if (x >= 0 && x <= width && y >= 0 && y <= height) {
-                    writer.setColor(i, j, reader.getColor((int)x, (int)y));
+                    writer.setColor(i, j, reader.getColor((int) x, (int) y));
                 }
             }
         }
@@ -287,7 +293,8 @@ public class PrimaryController {
                 writer.setColor(i, j, modified);
             }
         }
-        imageView.setImage(writableImage);;
+        imageView.setImage(writableImage);
+        ;
     }
 
     @FXML
@@ -299,8 +306,8 @@ public class PrimaryController {
         PixelReader reader = imageView.getImage().getPixelReader();
         PixelWriter writer = writableImage.getPixelWriter();
 
-        for (int i = 0; i < width; i+= 5) {
-            for (int j = 0; j < height; j+= 5) {
+        for (int i = 0; i < width; i += 5) {
+            for (int j = 0; j < height; j += 5) {
                 Color org = (reader.getColor(i, j));
                 for (int k = i; k < i + 6; k++) {
                     for (int l = j; l < j + 6; l++) {
@@ -332,16 +339,41 @@ public class PrimaryController {
             for (int j = 0; j < height; j++) {
                 double dist = Math.sqrt(Math.pow(i - cx, 2) + Math.pow(j - cy, 2));
                 double brightness = 1 - dist / max > 0.3 ? 1 - dist / max : 0.3;
-                
+
                 Color mod = reader.getColor(i, j).deriveColor(0, 1, brightness, 1);
                 writer.setColor(i, j, mod);
             }
         }
+        imageView.setImage(writableImage);
     }
 
     @FXML
     void onEdgeDetection(ActionEvent event) {
+        int width = (int) imageView.getImage().getWidth();
+        int height = (int) imageView.getImage().getHeight();
 
+        WritableImage writableImage = new WritableImage(width, height);
+        PixelReader reader = imageView.getImage().getPixelReader();
+        PixelWriter writer = writableImage.getPixelWriter();
+
+        double cx = width / 2;
+        double cy = height / 2;
+        double[][] kernel = { { 1, 1, 1 }, { 1, -7, 1 }, { 1, 1, 1 } };
+        
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                double r = 0;
+                double g = 0;
+                double b = 0;
+                for (int k = 0; k < kernel.length; k++) {
+                    for (int l = 0; l < kernel[k].length; l++) {
+                        Color c = reader.getColor(i + k, j + l);
+                    }
+                }
+                writer.setColor(i, j, reader.getColor(i, j));
+            }
+        }
+        imageView.setImage(writableImage);
     }
 
     @FXML
