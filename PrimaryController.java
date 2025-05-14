@@ -242,8 +242,7 @@ public class PrimaryController {
                 for (int k = 0; k < 3; k++) {
                     rgb[k] = rgb[k] > 1 ? 1 : rgb[k];
                 }
-                Color invert = new Color(rgb[0], rgb[1], rgb[2], 1);
-                writer.setColor(i, j, invert);
+                writer.setColor(i, j, new Color(rgb[0], rgb[1], rgb[2], 1));
             }
         }
         imageView.setImage(writableImage);
@@ -389,7 +388,36 @@ public class PrimaryController {
 
     @FXML
     void onEmboss(ActionEvent event) {
+        int width = (int) imageView.getImage().getWidth();
+        int height = (int) imageView.getImage().getHeight();
 
+        WritableImage writableImage = new WritableImage(width, height);
+        PixelReader reader = imageView.getImage().getPixelReader();
+        PixelWriter writer = writableImage.getPixelWriter();
+
+        double[][] kernel = { { -2, -1, 0 }, { -1, 1, 1 }, { 0, 1, 2 } };
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                double r = 0;
+                double g = 0;
+                double b = 0;
+                for (int k = 0; k < kernel.length; k++) {
+                    for (int l = 0; l < kernel[k].length; l++) {
+                        if ((i + k) > 0 && (i + k) < width && (j + l) > 0 && (j + l) < height){
+                            Color c = reader.getColor(i + k, j + l);
+                            r += c.getRed() * kernel[k][l];
+                            g += c.getGreen() * kernel[k][l];
+                            b += c.getBlue() * kernel[k][l];
+                        } 
+                    }
+                }
+                r = (r > 1 ? 1 : (r < 0 ? 0 : r));
+                g = (g > 1 ? 1 : (g < 0 ? 0 : g));
+                b = (b > 1 ? 1 : (b < 0 ? 0 : b));
+                writer.setColor(i, j, new Color (r, g, b, 1));
+            }
+        }
+        imageView.setImage(writableImage);
     }
 
     /*
