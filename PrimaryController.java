@@ -34,10 +34,6 @@ public class PrimaryController {
     @FXML
     private MenuItem horizontalFlip;
 
-    private int Width;
-    private int Height;
-    private int counter;
-
     @FXML
     void onOpenImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -51,8 +47,6 @@ public class PrimaryController {
                 Image image = new Image(file.toURI().toString());
                 originalImage = image;
                 imageView.setImage(image);
-                Width = (int)imageView.getImage().getWidth();
-                Height = (int)imageView.getImage().getHeight();
             }
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -134,33 +128,29 @@ public class PrimaryController {
         int width = (int) imageView.getImage().getWidth();
         int height = (int) imageView.getImage().getHeight();
 
-        //WritableImage writableImage = new WritableImage(width, height);
-        WritableImage writableImage = new WritableImage((counter % 2 == 0 ? Width : Height), (counter % 2 == 0 ? Height : Width));
+        WritableImage writableImage = new WritableImage(width, height);
         PixelReader reader = imageView.getImage().getPixelReader();
         PixelWriter writer = writableImage.getPixelWriter();
 
-        double cx = Width / 2;
-        double cy = Height / 2;
-        double angle = Math.toRadians(-90);
+        double angle = Math.toRadians(90);
+        double cx = width / 2;
+        double cy = height / 2;
 
-        for (int i = 0; i < Width; i++) {
-            for (int j = 0; j < Height; j++) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 double dx = i - cx;
                 double dy = j - cy;
 
-                double xPrime = dx * Math.cos(angle) - dy * Math.sin(angle) + cx;
-                double yPrime = dx * Math.sin(angle) - dy * Math.cos(angle) + cy;
-                // if (xPrime >= 0 && xPrime < (counter % 2 == 0 ? Width : Height) && yPrime >= 0 && yPrime < (counter % 2 == 0 ? Height : Width)) {
-                //     writer.setColor((int) xPrime, (int) yPrime, reader.getColor(i, j));
-                // }
-                try {
-                    writer.setColor((int) xPrime, (int) yPrime, reader.getColor(i, j));
-                } catch (IndexOutOfBoundsException e) {
+              
+                double x = dx * Math.cos(angle) - dy * Math.sin(angle) + cx;
+                double y = dx * Math.sin(angle) + dy * Math.cos(angle) + cy;
+
+                if (x >= 0 && x < width && y >= 0 && y < height) {
+                    writer.setColor(i, j, reader.getColor((int)x, (int)y));
                 }
             }
         }
-    imageView.setImage(writableImage);
-    counter++;
+        imageView.setImage(writableImage);
     }
 
     @FXML
@@ -361,7 +351,7 @@ public class PrimaryController {
         PixelWriter writer = writableImage.getPixelWriter();
 
         double[][] kernel = { { 1, 1, 1 }, { 1, -7, 1 }, { 1, 1, 1 } };
-        
+
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 double r = 0;
@@ -369,18 +359,18 @@ public class PrimaryController {
                 double b = 0;
                 for (int k = 0; k < kernel.length; k++) {
                     for (int l = 0; l < kernel[k].length; l++) {
-                        if ((i + k) > 0 && (i + k) < width && (j + l) > 0 && (j + l) < height){
+                        if ((i + k) > 0 && (i + k) < width && (j + l) > 0 && (j + l) < height) {
                             Color c = reader.getColor(i + k, j + l);
                             r += c.getRed() * kernel[k][l];
                             g += c.getGreen() * kernel[k][l];
                             b += c.getBlue() * kernel[k][l];
-                        } 
+                        }
                     }
                 }
                 r = (r > 1 ? 1 : (r < 0 ? 0 : r));
                 g = (g > 1 ? 1 : (g < 0 ? 0 : g));
                 b = (b > 1 ? 1 : (b < 0 ? 0 : b));
-                writer.setColor(i, j, new Color (r, g, b, 1));
+                writer.setColor(i, j, new Color(r, g, b, 1));
             }
         }
         imageView.setImage(writableImage);
@@ -403,18 +393,18 @@ public class PrimaryController {
                 double b = 0;
                 for (int k = 0; k < kernel.length; k++) {
                     for (int l = 0; l < kernel[k].length; l++) {
-                        if ((i + k) > 0 && (i + k) < width && (j + l) > 0 && (j + l) < height){
+                        if ((i + k) > 0 && (i + k) < width && (j + l) > 0 && (j + l) < height) {
                             Color c = reader.getColor(i + k, j + l);
                             r += c.getRed() * kernel[k][l];
                             g += c.getGreen() * kernel[k][l];
                             b += c.getBlue() * kernel[k][l];
-                        } 
+                        }
                     }
                 }
                 r = (r > 1 ? 1 : (r < 0 ? 0 : r));
                 g = (g > 1 ? 1 : (g < 0 ? 0 : g));
                 b = (b > 1 ? 1 : (b < 0 ? 0 : b));
-                writer.setColor(i, j, new Color (r, g, b, 1));
+                writer.setColor(i, j, new Color(r, g, b, 1));
             }
         }
         imageView.setImage(writableImage);
