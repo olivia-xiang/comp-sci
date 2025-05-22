@@ -32,10 +32,12 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -49,13 +51,19 @@
                   <MenuItem fx:id="openImage" mnemonicParsing="false" onAction="#onOpenImage" text="Open" />
                   <MenuItem fx:id="saveImage" mnemonicParsing="false" onAction="#onSaveImage" text="Save As" />
                   <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#onRestoreImage" text="Restore to Original" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#onExit" text="Exit" />
                </items>
         </Menu>
             <Menu mnemonicParsing="false" text="Transformation">
               <items>
                 <MenuItem fx:id="horizontalFlip" mnemonicParsing="false" onAction="#onHorizontalFlip" text="Horizontal Flip" />
                   <MenuItem id="verticalFlip" mnemonicParsing="false" onAction="#onVerticalFlip" text="Vertical Flip" />
-                  <MenuItem id="rotateFlip" mnemonicParsing="false" onAction="#onRotateFlip" text="Rotate Flip" />
+                  <MenuItem id="rotateFlip" mnemonicParsing="false" onAction="#onRotateFlip" text="Rotate Flip">
+                     <graphic>
+                        <Slider fx:id="slider" blockIncrement="90.0" majorTickUnit="90.0" max="360.0" minorTickCount="0" showTickLabels="true" snapToTicks="true" />
+                     </graphic></MenuItem>
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Color">
@@ -66,10 +74,18 @@
                   <MenuItem mnemonicParsing="false" onAction="#onBrightness" text="Brightness" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Filter">
+            <Menu mnemonicParsing="false" text="Effect">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#onBulge" text="Bulge" />
-                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                  <MenuItem mnemonicParsing="false" onAction="#onColorOverlay" text="Color Overlay">
+                     <graphic>
+                        <ColorPicker id="colorPicker" fx:id="colorPicker" />
+                     </graphic></MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#onPixelation" text="Pixelation" />
+                  <MenuItem mnemonicParsing="false" onAction="#onVignette" text="Vignette" />
+                  <MenuItem mnemonicParsing="false" onAction="#onEdgeDetection" text="Edge Detection" />
+                  <MenuItem mnemonicParsing="false" onAction="#onEmboss" text="Emboss" />
+                  <MenuItem mnemonicParsing="false" onAction="#onBlur" text="Blur" />
               </items>
             </Menu>
       </menus>
