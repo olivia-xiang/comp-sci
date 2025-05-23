@@ -82,7 +82,8 @@
                         <ColorPicker id="colorPicker" fx:id="colorPicker" />
                      </graphic></MenuItem>
                   <MenuItem mnemonicParsing="false" onAction="#onPixelation" text="Pixelation" />
-                  <MenuItem mnemonicParsing="false" onAction="#onVignette" text="Vignette" />
+                  <MenuItem mnemonicParsing="false" onAction="#onVignetteBlack" text="Vignette Black" />
+                  <MenuItem mnemonicParsing="false" onAction="#onVignetteWhite" text="Vignette White" />
                   <MenuItem mnemonicParsing="false" onAction="#onEdgeDetection" text="Edge Detection" />
                   <MenuItem mnemonicParsing="false" onAction="#onEmboss" text="Emboss" />
                   <MenuItem mnemonicParsing="false" onAction="#onBlur" text="Blur" />

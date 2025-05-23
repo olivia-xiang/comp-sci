@@ -327,7 +327,7 @@ public class PrimaryController {
     }
 
     @FXML
-    void onVignette(ActionEvent event) {
+    void onVignette(String maxValue) {
         int width = (int) imageView.getImage().getWidth();
         int height = (int) imageView.getImage().getHeight();
 
@@ -342,13 +342,30 @@ public class PrimaryController {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 double dist = Math.sqrt(Math.pow(i - cx, 2) + Math.pow(j - cy, 2));
-                double brightness = 1 - dist / max > 0.3 ? 1 - dist / max : 0.3;
-
-                Color mod = reader.getColor(i, j).deriveColor(0, 1, brightness, 1);
+                double brightness = 0;
+                Color mod = new Color(1, 1, 1, 1);
+                switch (maxValue) {
+                    case ("0.3") : 
+                        brightness = 1 - dist / max > 0.3 ? 1 - dist / max : 0.3;
+                        mod = reader.getColor(i, j).deriveColor(0, 1, brightness, 1);
+                    case ("0.7") :
+                        brightness = dist / max < 0.7 ? dist / max : 0.7;
+                        mod = reader.getColor(i, j).interpolate(new Color(1, 1, 1,1), brightness);
+                }
                 writer.setColor(i, j, mod);
             }
         }
         imageView.setImage(writableImage);
+    }
+
+    @FXML
+    void onVignetteWhite(ActionEvent event) {
+        onVignette("0.7");
+    }
+
+    @FXML
+    void onVignetteBlack(ActionEvent event) {
+        onVignette("0.3");
     }
 
     @FXML
