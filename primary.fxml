@@ -86,7 +86,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#onVignetteWhite" text="Vignette White" />
                   <MenuItem mnemonicParsing="false" onAction="#onEdgeDetection" text="Edge Detection" />
                   <MenuItem mnemonicParsing="false" onAction="#onEmboss" text="Emboss" />
-                  <MenuItem mnemonicParsing="false" onAction="#onBlur" text="Blur" />
+                  <MenuItem mnemonicParsing="false" onAction="#onBloom" text="Bloom" />
               </items>
             </Menu>
       </menus>

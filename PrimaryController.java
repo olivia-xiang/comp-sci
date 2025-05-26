@@ -5,7 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.DisplacementMap;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.Lighting;
+import javafx.scene.effect.MotionBlur;
+import javafx.scene.effect.PerspectiveTransform;
+import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
@@ -134,7 +140,8 @@ public class PrimaryController {
 
     @FXML
     // Fix width and height problem
-    // Maybe try finding a way to rotate all 360 degrees (indivudally) making the image a circle
+    // Maybe try finding a way to rotate all 360 degrees (indivudally) making the
+    // image a circle
     void onRotateFlip(ActionEvent event) {
         int width = (int) imageView.getImage().getWidth();
         int height = (int) imageView.getImage().getHeight();
@@ -152,12 +159,11 @@ public class PrimaryController {
                 double dx = i - cx;
                 double dy = j - cy;
 
-              
                 double x = dx * Math.cos(angle) - dy * Math.sin(angle) + cx;
                 double y = dx * Math.sin(angle) + dy * Math.cos(angle) + cy;
 
                 if (x >= 0 && x < width && y >= 0 && y < height) {
-                    writer.setColor(i, j, reader.getColor((int)x, (int)y));
+                    writer.setColor(i, j, reader.getColor((int) x, (int) y));
                 }
             }
         }
@@ -344,13 +350,12 @@ public class PrimaryController {
                 double dist = Math.sqrt(Math.pow(i - cx, 2) + Math.pow(j - cy, 2));
                 double brightness = 0;
                 Color mod = new Color(1, 1, 1, 1);
-                switch (maxValue) {
-                    case ("0.3") : 
-                        brightness = 1 - dist / max > 0.3 ? 1 - dist / max : 0.3;
-                        mod = reader.getColor(i, j).deriveColor(0, 1, brightness, 1);
-                    case ("0.7") :
-                        brightness = dist / max < 0.7 ? dist / max : 0.7;
-                        mod = reader.getColor(i, j).interpolate(new Color(1, 1, 1,1), brightness);
+                if (maxValue.equals("0.3")) {
+                    brightness = 1 - dist / max > 0.3 ? 1 - dist / max : 0.3;
+                    mod = reader.getColor(i, j).deriveColor(0, 1, brightness, 1);
+                } else {
+                    brightness = dist / max < 0.7 ? dist / max : 0.7;
+                    mod = reader.getColor(i, j).interpolate(new Color(1, 1, 1, 1), brightness);
                 }
                 writer.setColor(i, j, mod);
             }
@@ -438,8 +443,8 @@ public class PrimaryController {
     }
 
     @FXML
-    void onBlur(ActionEvent event) {
-        imageView.setEffect(new GaussianBlur());
+    void onBloom(ActionEvent event) {
+        imageView.setEffect(new Bloom());
     }
 
     /*
